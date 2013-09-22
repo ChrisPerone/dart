@@ -27,7 +27,6 @@ void main() {
     for (int i = 0; i < 10000; ++i) {
       Point pt = new Point(random.nextDouble() * width, random.nextDouble() * height);
       particle = new Particle(pt.x, pt.y, getRandomColor());
-//      _particles.add(particle);
       if (last != null)
          last.next = particle;
       last = particle;
@@ -40,6 +39,8 @@ void main() {
     context.setTransform(1, 0, 0, 1, 0, 0);
 
     requestRedraw();
+//    Console console = new Console();
+//    console.trace("test");
 }
 
 String getRandomColor() {
