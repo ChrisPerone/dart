@@ -1,4 +1,19 @@
-file:///C:/Users/Adminpc/dart/ParticleCube/web/ParticleCube.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/ParticleCube.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/aabb2.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/aabb3.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/angle.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/constants.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/error_helpers.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/matrix2.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/matrix3.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/matrix4.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/opengl.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/quaternion.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/vector.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/vector2.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/vector3.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/src/vector_math/vector4.dart
+file:///C:/Users/Adminpc/Documents/GitHub/dart/particleCube/web/packages/vector_math/vector_math.dart
 file:///C:/dart/dart-sdk/lib/_collection_dev/arrays.dart
 file:///C:/dart/dart-sdk/lib/_collection_dev/collection_dev.dart
 file:///C:/dart/dart-sdk/lib/_collection_dev/iterable.dart
@@ -10,6 +25,7 @@ file:///C:/dart/dart-sdk/lib/_internal/lib/async_patch.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/collection_dev_patch.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/collection_patch.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/constant_map.dart
+file:///C:/dart/dart-sdk/lib/_internal/lib/convert_patch.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/core_patch.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/foreign_helper.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/interceptors.dart
@@ -21,7 +37,6 @@ file:///C:/dart/dart-sdk/lib/_internal/lib/js_names.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/js_number.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/js_rti.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/js_string.dart
-file:///C:/dart/dart-sdk/lib/_internal/lib/json_patch.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/math_patch.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/native_helper.dart
 file:///C:/dart/dart-sdk/lib/_internal/lib/regexp_helper.dart
@@ -59,6 +74,7 @@ file:///C:/dart/dart-sdk/lib/convert/codec.dart
 file:///C:/dart/dart-sdk/lib/convert/convert.dart
 file:///C:/dart/dart-sdk/lib/convert/converter.dart
 file:///C:/dart/dart-sdk/lib/convert/encoding.dart
+file:///C:/dart/dart-sdk/lib/convert/html_escape.dart
 file:///C:/dart/dart-sdk/lib/convert/json.dart
 file:///C:/dart/dart-sdk/lib/convert/latin1.dart
 file:///C:/dart/dart-sdk/lib/convert/line_splitter.dart

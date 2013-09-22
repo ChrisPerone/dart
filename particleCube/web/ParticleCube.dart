@@ -1,32 +1,46 @@
 import 'dart:html';
 import 'dart:math' as Math;
+import 'package:vector_math/vector_math.dart';
+
+int PARTICLE_SIZE = 2;
 
 CanvasElement canvas;
+CanvasRenderingContext2D context;
 
 num _width;
 num _height;
+double _rotation = 0.0;
 
-num renderTime;
-num totalTime = 0;
+final Vector3 _bounds = new Vector3(_width * 0.5, _height * 0.5, 100.0);
+final Matrix4 matrix4 = new Matrix4.identity();
 
-num get width => _width;
-
-num get height => _height;
 final List<Particle> _particles = [];
 final Math.Random random = new Math.Random(100);
 
+//=================
+//Getters & Setters
+num get width => _width;
+num get height => _height;
+
+String get getRandomColor {
+  return '#${random.nextInt(255).toRadixString(16)}${random.nextInt(255).toRadixString(16)}${random.nextInt(255).toRadixString(16)}';
+}
+
+//================
+//Public Functions
 void main() {
-  canvas = query("#container");
-  // Measure the canvas element.
+    canvas = query("#container");
+    context = canvas.context2D;
+    //Measure the canvas element.
     _width = (canvas.parent as Element).clientWidth;
     _height = (canvas.parent as Element).clientHeight;
 
     canvas.width = _width;
+
     Particle particle;
     Particle last;
-    for (int i = 0; i < 10000; ++i) {
-      Point pt = new Point(random.nextDouble() * width, random.nextDouble() * height);
-      particle = new Particle(pt.x, pt.y, getRandomColor());
+    for (int i = 0; i < 5000; ++i) {
+      particle = new Particle(random.nextDouble() * _bounds.x, random.nextDouble() * _bounds.y, random.nextDouble() * _bounds.z, getRandomColor);
       if (last != null)
          last.next = particle;
       last = particle;
@@ -34,99 +48,60 @@ void main() {
           Particle.start = particle;
     }
 
-    final context = canvas.context2d;
     context.fillStyle = "#FFFFFF";
     context.setTransform(1, 0, 0, 1, 0, 0);
 
-    requestRedraw();
-//    Console console = new Console();
-//    console.trace("test");
-}
-
-String getRandomColor() {
-  return '#${random.nextInt(255).toRadixString(16)}${random.nextInt(255).toRadixString(16)}${random.nextInt(255).toRadixString(16)}';
+    window.requestAnimationFrame(draw);
 }
 
 void draw(num _) {
-//  num time = new Date.now().millisecondsSinceEpoch;
+    drawBackground();
 
-//  if (renderTime != null) {
-//    showFps((1000 / (time - renderTime)).round());
-//  }
+    matrix4.setIdentity();
+    matrix4.translate(_bounds.x * 0.5, _bounds.y * 0.5, _bounds.z * 0.5);
+    matrix4.rotateX(_rotation);
+    matrix4.rotateY(_rotation);
+    matrix4.rotateZ(_rotation);
+    matrix4.translate(-_bounds.x * 0.5, -_bounds.y * 0.5, -_bounds.z * 0.5);
+    _rotation = 0.005;
 
-  final context = canvas.context2d;
-
-//  final ImageData imageData = context.getImageData(0, 0, 100, 100);
-//  if (renderTime != null) {
-//  totalTime += (time - renderTime);
-//  for (int i = imageData.data.length - 1; i >= 4; i -= 4) {
-//    int p = (Math.cos(time * 1000) * 10).toInt(); //imageData.data[i];
-//    imageData.data[i] = 255;
-//    imageData.data[i - 1] = 0;
-//    imageData.data[i - 2] = Math.min(255, totalTime * 0.01).toInt();
-//    imageData.data[i - 3] = 0;
-//  }
-//  context.putImageData(imageData, 0, 0, 0, 0, 100, 100);
-    drawBackground(context);
-//    _particles.forEach((particle) => particle.draw(context));
     Particle particle = Particle.start;
-    do {
-      particle.draw(context);
+    while (particle != null) {
+      particle.draw();
       particle = particle.next;
-    } while (particle != null);
-//  renderTime = time;
-  requestRedraw();
+    }
+
+    window.requestAnimationFrame(draw);
 }
 
-void drawBackground(CanvasRenderingContext2D context) {
+void drawBackground() {
   context.save();
   context.transform(1, 0, 0, 1, 0, 0);
   context.clearRect(0, 0, width, height);
   context.restore();
 }
 
-void requestRedraw() {
-  window.requestAnimationFrame(draw);
-}
-
 class Particle {
   static Particle start;
+  static final Vector2 _screenPt = new Vector2(0.0, 0.0);
   Particle next;
-  Point _pt;
+  Vector3 _pt;
   String _color;
 
-  Particle(double x, double y, this._color) {
-    _pt = new Point(x, y);
+  Particle(double x, double y, double z, this._color) {
+    _pt = new Vector3(x, y, z);
   }
-  void draw(CanvasRenderingContext2D context) {
+  void draw() {
+      get2DLoc(_pt, _screenPt);
       context.fillStyle = _color;
-      context.fillRect(_pt.x.toInt(), _pt.y.toInt(), 1, 1);
-      _pt.x += Math.cos(_pt.y);
-      _pt.y++;
-      if (_pt.y >= height) {
-        _pt.x = random.nextDouble() * width;
-        _pt.y = 0.0;
-      }
+      context.fillRect(_screenPt.x.toInt(), _screenPt.y.toInt(), PARTICLE_SIZE, PARTICLE_SIZE);
+//      _pt.x += Math.cos(_pt.y);
+//      _pt.y++;
   }
-}
-
-double fpsAverage;
-
-/**
- * Display the animation's FPS in a div.
- */
-void showFps(num fps) {
-  if (fpsAverage == null) {
-    fpsAverage = fps;
+  static void get2DLoc(Vector3 pt, Vector2 result) {
+    Vector3 v = matrix4.transform3(pt);
+    v.applyProjection(matrix4);
+    result.x = v.x + (_width - _bounds.x) * 0.5;
+    result.y = v.y + (_height - _bounds.y) * 0.5;
   }
-
-  fpsAverage = fps * 0.05 + fpsAverage * 0.95;
-
-  query("#notes").text = "${fpsAverage.round().toInt()} fps";
-}
-
-class Point {
-  double x, y;
-
-  Point(this.x, this.y);
 }

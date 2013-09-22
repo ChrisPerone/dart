@@ -1,0 +1,143 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Particle class / ParticleCube.dart Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="ParticleCube.dart" data-type="Particle">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../ParticleCube.dart.html">ParticleCube.dart</a> &rsaquo; <a href="../ParticleCube.dart/Particle.html">Particle</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../metadata.html">metadata</a></h2><h2><div class="icon-library"></div><a href="../ParticleCube.dart.html">ParticleCube.dart</a></h2><ul class="icon">
+<li><div class="icon-class"></div><strong>Particle</strong></li>
+<li><a href="../ParticleCube.dart/Point.html"><div class="icon-class"></div>Point</a></li>
+</ul>
+</div>
+<div class="content">
+        <h2><strong>Particle</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<pre class="source">
+class Particle {
+ static Particle start;
+ Particle next;
+ Point _pt;
+ String _color;
+
+ Particle(double x, double y, this._color) {
+   _pt = new Point(x, y);
+ }
+ void draw(CanvasRenderingContext2D context) {
+     context.fillStyle = _color;
+     context.fillRect(_pt.x.toInt(), _pt.y.toInt(), 1, 1);
+     _pt.x += Math.cos(_pt.y);
+     _pt.y++;
+     if (_pt.y &gt;= height) {
+       _pt.x = random.nextDouble() * width;
+       _pt.y = 0.0;
+     }
+ }
+}
+</pre>
+</div>
+<div>
+<h3>Static Properties</h3>
+<div class="field"><h4 id="start">
+<button class="show-code">Code</button>
+<a href="../ParticleCube.dart/Particle.html">Particle</a>         <strong>start</strong> <a class="anchor-link"
+            href="#start"
+            title="Permalink to Particle.start">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+static Particle start
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="">
+<button class="show-code">Code</button>
+new <strong>Particle</strong>(<a href="http://api.dartlang.org/dart_core/double.html">double</a> x, <a href="http://api.dartlang.org/dart_core/double.html">double</a> y, <a href="http://api.dartlang.org/dart_core/String.html">String</a> _color) <a class="anchor-link" href="#"
+              title="Permalink to Particle.Particle">#</a></h4>
+<div class="doc">
+<div class="inherited">
+<p>Creates a new <a class="crossref" href="../dart_core/Object.html">Object</a> instance.</p>
+<p><a class="crossref" href="../dart_core/Object.html">Object</a> instances have no meaningful state, and are only useful
+through their identity. An <a class="crossref" href="../dart_core/Object.html">Object</a> instance is equal to itself
+only.</p>
+<div class="docs-inherited-from">docs inherited from <a href="http://api.dartlang.org/dart_core/Object.html">Object</a> </div></div>
+<pre class="source">
+Particle(double x, double y, this._color) {
+ _pt = new Point(x, y);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="next">
+<button class="show-code">Code</button>
+<a href="../ParticleCube.dart/Particle.html">Particle</a>         <strong>next</strong> <a class="anchor-link"
+            href="#next"
+            title="Permalink to Particle.next">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+Particle next
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="draw">
+<button class="show-code">Code</button>
+void <strong>draw</strong>(<a href="http://api.dartlang.org/dart_html/CanvasRenderingContext2D.html">CanvasRenderingContext2D</a> context) <a class="anchor-link" href="#draw"
+              title="Permalink to Particle.draw">#</a></h4>
+<div class="doc">
+<pre class="source">
+void draw(CanvasRenderingContext2D context) {
+   context.fillStyle = _color;
+   context.fillRect(_pt.x.toInt(), _pt.y.toInt(), 1, 1);
+   _pt.x += Math.cos(_pt.y);
+   _pt.y++;
+   if (_pt.y &gt;= height) {
+     _pt.x = random.nextDouble() * width;
+     _pt.y = 0.0;
+   }
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-09-22 13:14:56.087</div>
+        </div>
+        <script async src="../client-static.js"></script>
+        </body></html>
+        

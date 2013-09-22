@@ -7,6 +7,56 @@
 //                        Instead, a closure that will invoke [main] is
 //                        passed to [dartMainRunner].
 (function($) {
+var A = {};
+delete A.x;
+var B = {};
+delete B.x;
+var C = {};
+delete C.x;
+var D = {};
+delete D.x;
+var E = {};
+delete E.x;
+var F = {};
+delete F.x;
+var G = {};
+delete G.x;
+var H = {};
+delete H.x;
+var J = {};
+delete J.x;
+var K = {};
+delete K.x;
+var L = {};
+delete L.x;
+var M = {};
+delete M.x;
+var N = {};
+delete N.x;
+var O = {};
+delete O.x;
+var P = {};
+delete P.x;
+var Q = {};
+delete Q.x;
+var R = {};
+delete R.x;
+var S = {};
+delete S.x;
+var T = {};
+delete T.x;
+var U = {};
+delete U.x;
+var V = {};
+delete V.x;
+var W = {};
+delete W.x;
+var X = {};
+delete X.x;
+var Y = {};
+delete Y.x;
+var Z = {};
+delete Z.x;
 function Isolate() {}
 init();
 
@@ -15,25 +65,25 @@ var $$ = {};
 
 // Native classes
 // Bound closures
-$$.Closure$draw = {"": "Closure;call$1,$name"};
+$$.Closure$draw = [K, {"": "Closure;call$1,$name"}];
 
-$$.Closure$toStringWrapper = {"": "Closure;call$0,$name"};
+$$.Closure$toStringWrapper = [H, {"": "Closure;call$0,$name"}];
 
-$$.Closure$invokeClosure = {"": "Closure;call$5,$name"};
+$$.Closure$invokeClosure = [H, {"": "Closure;call$5,$name"}];
 
-$$.Closure$typeNameInChrome = {"": "Closure;call$1,$name"};
+$$.Closure$typeNameInChrome = [H, {"": "Closure;call$1,$name"}];
 
-$$.Closure$typeNameInSafari = {"": "Closure;call$1,$name"};
+$$.Closure$typeNameInSafari = [H, {"": "Closure;call$1,$name"}];
 
-$$.Closure$typeNameInOpera = {"": "Closure;call$1,$name"};
+$$.Closure$typeNameInOpera = [H, {"": "Closure;call$1,$name"}];
 
-$$.Closure$typeNameInFirefox = {"": "Closure;call$1,$name"};
+$$.Closure$typeNameInFirefox = [H, {"": "Closure;call$1,$name"}];
 
-$$.Closure$typeNameInIE = {"": "Closure;call$1,$name"};
+$$.Closure$typeNameInIE = [H, {"": "Closure;call$1,$name"}];
 
-$$.Closure$constructorNameFallback = {"": "Closure;call$1,$name"};
+$$.Closure$constructorNameFallback = [H, {"": "Closure;call$1,$name"}];
 
-$$.Closure$callDartFunctionWith1Arg = {"": "Closure;call$2,$name"};
+$$.Closure$callDartFunctionWith1Arg = [H, {"": "Closure;call$2,$name"}];
 
 (function (reflectionData) {
   function map(x){x={x:x};delete x.x;return x}
@@ -42,6 +92,7 @@ $$.Closure$callDartFunctionWith1Arg = {"": "Closure;call$2,$name"};
   if (!init.mangledGlobalNames) init.mangledGlobalNames = map();
   if (!init.statics) init.statics = map();
   if (!init.interfaces) init.interfaces = map();
+  if (!init.globalFunctions) init.globalFunctions = map();
   var libraries = init.libraries;
   var mangledNames = init.mangledNames;
   var mangledGlobalNames = init.mangledGlobalNames;
@@ -52,8 +103,9 @@ $$.Closure$callDartFunctionWith1Arg = {"": "Closure;call$2,$name"};
     var name = data[0];
     var uri = data[1];
     var metadata = data[2];
-    var descriptor = data[3];
-    var isRoot = !!data[4];
+    var globalObject = data[3];
+    var descriptor = data[4];
+    var isRoot = !!data[5];
     var fields = descriptor && descriptor[""];
     var classes = [];
     var functions = [];
@@ -66,13 +118,15 @@ $$.Closure$callDartFunctionWith1Arg = {"": "Closure;call$2,$name"};
         var previousProperty;
         if (firstChar === "+") {
           mangledGlobalNames[previousProperty] = property.substring(1);
+          if (descriptor[property] == 1) descriptor[previousProperty].$reflectable = 1;
           if (element && element.length) init.interfaces[previousProperty] = element;
         } else if (firstChar === "@") {
           property = property.substring(1);
           $[property]["@"] = element;
         } else if (typeof element === "function") {
-          $[previousProperty = property] = element;
+          globalObject[previousProperty = property] = element;
           functions.push(property);
+          init.globalFunctions[property] = element;
         } else {
           previousProperty = property;
           var newDesc = {};
@@ -84,192 +138,205 @@ $$.Closure$callDartFunctionWith1Arg = {"": "Closure;call$2,$name"};
               processStatics(init.statics[property] = element[prop]);
             } else if (firstChar === "+") {
               mangledNames[previousProp] = prop.substring(1);
+              if (element[prop] == 1) element[previousProp].$reflectable = 1;
             } else if (firstChar === "@" && prop !== "@") {
               newDesc[prop.substring(1)]["@"] = element[prop];
             } else {
               newDesc[previousProp = prop] = element[prop];
             }
           }
-          $$[property] = newDesc;
+          $$[property] = [globalObject, newDesc];
           classes.push(property);
         }
       }
     }
     processStatics(descriptor);
-    libraries.push([name, uri, classes, functions, metadata, fields, isRoot]);
+    libraries.push([name, uri, classes, functions, metadata, fields, isRoot,
+                    globalObject]);
   }
 })([
-["ParticleCube.dart", "ParticleCube.dart", , {
+["ParticleCube.dart", "ParticleCube.dart", , K, {
 main: function() {
-  var last, i, t1, t2, t3, t4, pt, max, particle, context;
+  var last, i, t1, t2, t3, t4, t5, t6, t7, t8, particle, t9;
   $.canvas = document.querySelector("#container");
+  $.context = J.get$context2D$x($.canvas);
   $._width = $.canvas.parentElement.clientWidth;
   $._height = $.canvas.parentElement.clientHeight;
-  $.set$width$x($.canvas, $._width);
-  for (last = null, i = 0; i < 10000; ++i, last = particle) {
+  J.set$width$x($.canvas, $._width);
+  for (last = null, i = 0; i < 5000; ++i, last = particle) {
     $.get$random();
     t1 = Math.random();
-    t2 = $._width;
-    if (t2 == null)
-      throw $.iae(t2);
+    t2 = $.get$_bounds().storage;
+    if (0 >= C.JS_CONST_ZYJ(t2))
+      throw H.ioore(0);
+    t2 = t2[0];
     $.get$random();
     t3 = Math.random();
-    t4 = $._height;
-    if (t4 == null)
-      throw $.iae(t4);
-    pt = new $.Point(t1 * t2, t3 * t4);
-    t4 = pt.x;
-    t3 = pt.y;
+    t4 = $.get$_bounds().storage;
+    if (1 >= C.JS_CONST_ZYJ(t4))
+      throw H.ioore(1);
+    t4 = t4[1];
     $.get$random();
-    max = 255;
-    t1 = Math.random() * max >>> 0;
-    if (false)
-      $.throwExpression(new $.RangeError(16));
-    t1 = "#" + t1.toString(16);
+    t5 = Math.random();
+    t6 = $.get$_bounds().storage;
+    if (2 >= C.JS_CONST_ZYJ(t6))
+      throw H.ioore(2);
+    t6 = t6[2];
     $.get$random();
-    max = 255;
-    t2 = Math.random() * max >>> 0;
-    if (false)
-      $.throwExpression(new $.RangeError(16));
-    t1 += t2.toString(16);
+    t7 = Math.random() * 255 >>> 0;
+    t7 = "#" + t7.toString(16);
     $.get$random();
-    max = 255;
-    t2 = Math.random() * max >>> 0;
-    if (false)
-      $.throwExpression(new $.RangeError(16));
-    particle = new $.Particle(null, null, t1 + t2.toString(16));
-    particle._pt = new $.Point(t4, t3);
+    t8 = Math.random() * 255 >>> 0;
+    t7 += t8.toString(16);
+    $.get$random();
+    t8 = Math.random() * 255 >>> 0;
+    particle = new K.Particle(null, null, t7 + t8.toString(16));
+    t7 = new Float32Array(3);
+    t7.$dartCachedLength = t7.length;
+    t7 = new T.Vector3(t7);
+    t8 = t7.storage;
+    t9 = C.JS_CONST_ZYJ(t8);
+    if (0 >= t9)
+      throw H.ioore(0);
+    t8[0] = t1 * t2;
+    if (1 >= t9)
+      throw H.ioore(1);
+    t8[1] = t3 * t4;
+    if (2 >= t9)
+      throw H.ioore(2);
+    t8[2] = t5 * t6;
+    particle._pt = t7;
     if (last != null)
       last.next = particle;
     if ($.Particle_start == null)
       $.Particle_start = particle;
   }
-  context = $.get$context2d$x($.canvas);
-  context.fillStyle = "#FFFFFF";
-  context.setTransform(1, 0, 0, 1, 0, 0);
+  t1 = $.context;
+  t1.fillStyle = "#FFFFFF";
+  t1.setTransform(1, 0, 0, 1, 0, 0);
   t1 = window;
   C.Window_methods._ensureRequestAnimationFrame$0(t1);
-  C.Window_methods._requestAnimationFrame$1(t1, $.draw$closure);
+  C.Window_methods._requestAnimationFrame$1(t1, K.draw$closure);
 },
 
 draw: function(_) {
-  var context, particle, t1;
-  context = $.get$context2d$x($.canvas);
-  $.drawBackground(context);
+  var t1, t2, t3, t4, particle, truncated;
+  K.drawBackground();
+  $.get$matrix4().setIdentity$0();
+  t1 = $.get$matrix4();
+  t2 = $.get$_bounds().storage;
+  if (0 >= C.JS_CONST_ZYJ(t2))
+    throw H.ioore(0);
+  t2 = t2[0];
+  t3 = $.get$_bounds().storage;
+  if (1 >= C.JS_CONST_ZYJ(t3))
+    throw H.ioore(1);
+  t3 = t3[1];
+  t4 = $.get$_bounds().storage;
+  if (2 >= C.JS_CONST_ZYJ(t4))
+    throw H.ioore(2);
+  t1.translate$3(t1, t2 * 0.5, t3 * 0.5, t4[2] * 0.5);
+  $.get$matrix4().rotateX$1($._rotation);
+  $.get$matrix4().rotateY$1($._rotation);
+  $.get$matrix4().rotateZ$1($._rotation);
+  t4 = $.get$matrix4();
+  t3 = $.get$_bounds().storage;
+  if (0 >= C.JS_CONST_ZYJ(t3))
+    throw H.ioore(0);
+  t3 = t3[0];
+  t2 = $.get$_bounds().storage;
+  if (1 >= C.JS_CONST_ZYJ(t2))
+    throw H.ioore(1);
+  t2 = t2[1];
+  t1 = $.get$_bounds().storage;
+  if (2 >= C.JS_CONST_ZYJ(t1))
+    throw H.ioore(2);
+  t4.translate$3(t4, -t3 * 0.5, -t2 * 0.5, -t1[2] * 0.5);
+  $._rotation = 0.005;
   particle = $.Particle_start;
-  do {
-    particle.draw$1(context);
+  for (; particle != null;) {
+    particle.draw$0;
+    K.Particle_get2DLoc(particle._pt, $.get$Particle__screenPt());
+    t1 = $.context;
+    t1.fillStyle = particle._color;
+    t2 = $.get$Particle__screenPt().storage;
+    if (0 >= C.JS_CONST_ZYJ(t2))
+      throw H.ioore(0);
+    t2 = t2[0];
+    if (isNaN(t2))
+      H.throwExpression(new P.UnsupportedError("NaN"));
+    if (t2 == Infinity || t2 == -Infinity)
+      H.throwExpression(new P.UnsupportedError("Infinity"));
+    truncated = t2 < 0 ? Math.ceil(t2) : Math.floor(t2);
+    t2 = truncated == -0.0 ? 0 : truncated;
+    t3 = $.get$Particle__screenPt().storage;
+    if (1 >= C.JS_CONST_ZYJ(t3))
+      throw H.ioore(1);
+    t3 = t3[1];
+    if (isNaN(t3))
+      H.throwExpression(new P.UnsupportedError("NaN"));
+    if (t3 == Infinity || t3 == -Infinity)
+      H.throwExpression(new P.UnsupportedError("Infinity"));
+    truncated = t3 < 0 ? Math.ceil(t3) : Math.floor(t3);
+    t3 = truncated == -0.0 ? 0 : truncated;
+    t4 = $.PARTICLE_SIZE;
+    t1.fillRect(t2, t3, t4, t4);
     particle = particle.next;
-  } while (particle != null);
+  }
   t1 = window;
   C.Window_methods._ensureRequestAnimationFrame$0(t1);
-  C.Window_methods._requestAnimationFrame$1(t1, $.draw$closure);
+  C.Window_methods._requestAnimationFrame$1(t1, K.draw$closure);
 },
 
-drawBackground: function(context) {
-  context.save();
-  context.transform(1, 0, 0, 1, 0, 0);
-  context.clearRect(0, 0, $._width, $._height);
-  context.restore();
+drawBackground: function() {
+  $.context.save();
+  $.context.transform(1, 0, 0, 1, 0, 0);
+  $.context.clearRect(0, 0, $._width, $._height);
+  $.context.restore();
 },
 
-Particle: {"": "Object;next,_pt,_color",
-  draw$1: function(context) {
-    var t1, t2, t3;
-    context.fillStyle = this._color;
-    context.fillRect($.toInt$0$n(this._pt.x), $.toInt$0$n(this._pt.y), 1, 1);
-    t1 = this._pt;
-    t2 = t1.x;
-    if (typeof t2 !== "number")
-      return this.draw$1$bailout(1, t2, t1);
-    t3 = t1.y;
-    if (typeof t3 !== "number")
-      $.throwExpression(new $.ArgumentError(t3));
-    t1.x = t2 + Math.cos(t3);
-    t1 = this._pt;
-    t2 = t1.y;
-    if (typeof t2 !== "number")
-      return this.draw$1$bailout(2, t2, t1);
-    t1.y = t2 + 1;
-    t1 = this._pt;
-    t2 = t1.y;
-    t3 = $._height;
-    if (t3 == null)
-      return this.draw$1$bailout(3, t2, t1, t3);
-    if (typeof t2 !== "number")
-      throw t2.$ge();
-    if (t2 >= t3) {
-      $.get$random();
-      t2 = Math.random();
-      t3 = $._width;
-      if (t3 == null)
-        return this.draw$1$bailout(4, t2, t1, t3);
-      t1.x = t2 * t3;
-      this._pt.y = 0;
-    }
-  },
-  draw$1$bailout: function(state0, t2, t1, t3) {
-    switch (state0) {
-      case 0:
-        context.fillStyle = this._color;
-        context.fillRect($.toInt$0$n(this._pt.x), $.toInt$0$n(this._pt.y), 1, 1);
-        t1 = this._pt;
-        t2 = t1.x;
-      case 1:
-        state0 = 0;
-        t3 = t1.y;
-        if (typeof t3 !== "number")
-          $.throwExpression(new $.ArgumentError(t3));
-        t1.x = $.$add$ns(t2, Math.cos(t3));
-        t1 = this._pt;
-        t2 = t1.y;
-      case 2:
-        state0 = 0;
-        t1.y = $.$add$ns(t2, 1);
-        t1 = this._pt;
-        t2 = t1.y;
-        t3 = $._height;
-      case 3:
-        state0 = 0;
-        if (typeof t2 !== "number")
-          throw t2.$ge();
-        if (t3 == null)
-          throw $.iae(t3);
-      case 4:
-        if (state0 === 4 || state0 === 0 && t2 >= t3)
-          switch (state0) {
-            case 0:
-              $.get$random();
-              t2 = Math.random();
-              t3 = $._width;
-            case 4:
-              state0 = 0;
-              if (t3 == null)
-                throw $.iae(t3);
-              t1.x = t2 * t3;
-              this._pt.y = 0;
-          }
-    }
-  },
-  static: {
-"": "Particle_start",
-}
-
-},
-
-Point: {"": "Object;x,y"}},
+Particle: {"": "Object;next,_pt,_color", static: {
+"": "Particle_start,Particle__screenPt",
+Particle_get2DLoc: function(pt, result) {
+  var v, t1, t2, t3, t4, t5;
+  v = $.get$matrix4().transform3$1(pt);
+  v.applyProjection$1($.get$matrix4());
+  t1 = v.storage;
+  if (0 >= C.JS_CONST_ZYJ(t1))
+    throw H.ioore(0);
+  t2 = t1[0];
+  t3 = $._width;
+  t4 = $.get$_bounds().storage;
+  if (0 >= C.JS_CONST_ZYJ(t4))
+    throw H.ioore(0);
+  t4 = t4[0];
+  if (t3 == null)
+    throw t3.$sub();
+  t5 = result.storage;
+  if (0 >= C.JS_CONST_ZYJ(t5))
+    throw H.ioore(0);
+  t5[0] = t2 + (t3 - t4) * 0.5;
+  if (1 >= C.JS_CONST_ZYJ(t1))
+    throw H.ioore(1);
+  t1 = t1[1];
+  t4 = $._height;
+  t3 = $.get$_bounds().storage;
+  if (1 >= C.JS_CONST_ZYJ(t3))
+    throw H.ioore(1);
+  t3 = t3[1];
+  if (t4 == null)
+    throw t4.$sub();
+  if (1 >= C.JS_CONST_ZYJ(t5))
+    throw H.ioore(1);
+  t5[1] = t1 + (t4 - t3) * 0.5;
+}}
+}},
 1],
-["_interceptors", "dart:_interceptors", , {
+["_foreign_helper", "dart:_foreign_helper", , H, {
+JS_CONST: {"": "Object;code"}}],
+["_interceptors", "dart:_interceptors", , J, {
 getInterceptor: function(object) {
   return void 0;
-},
-
-getDispatchProperty: function(object) {
-  return object[$.dispatchPropertyName];
-},
-
-setDispatchProperty: function(object, value) {
-  Object.defineProperty(object, $.dispatchPropertyName, {value: value, enumerable: false, writable: true, configurable: true});
 },
 
 makeDispatchRecord: function(interceptor, proto, extension, indexability) {
@@ -278,7 +345,7 @@ makeDispatchRecord: function(interceptor, proto, extension, indexability) {
 
 getNativeInterceptor: function(object) {
   var record, proto, objectProto;
-  record = $.getDispatchProperty(object);
+  record = object[init.dispatchPropertyName];
   if (record != null) {
     proto = record.p;
     if (false === proto)
@@ -291,44 +358,11 @@ getNativeInterceptor: function(object) {
     if (record.e === objectProto)
       return proto(object, record);
   }
-  record = $.lookupDispatchRecord(object);
+  record = H.lookupDispatchRecord(object);
   if (record == null)
     return C.C_UnknownJavaScriptObject;
-  $.setDispatchProperty(Object.getPrototypeOf(object), record);
-  return $.getNativeInterceptor(object);
-},
-
-initializeDispatchProperty: function(setGetDispatchPropertyFn, rootProperty, jsObjectInterceptor) {
-  var objectProto, i, property;
-  if (typeof rootProperty !== "string")
-    return $.initializeDispatchProperty$bailout(1, setGetDispatchPropertyFn, rootProperty, jsObjectInterceptor);
-  objectProto = Object.prototype;
-  for (i = 0; true; ++i) {
-    if (i > 0)
-      property = rootProperty + "_" + i;
-    else
-      property = rootProperty;
-    if (typeof objectProto[property] === "undefined") {
-      $.dispatchPropertyName = property;
-      setGetDispatchPropertyFn(new Function("a", "return a." + property));
-      $.setDispatchProperty(objectProto, $.makeDispatchRecord(jsObjectInterceptor, objectProto, null, null));
-      return;
-    }
-  }
-},
-
-initializeDispatchProperty$bailout: function(state0, setGetDispatchPropertyFn, rootProperty, jsObjectInterceptor) {
-  var objectProto, i, property;
-  objectProto = Object.prototype;
-  for (i = 0; true; ++i) {
-    property = i > 0 ? rootProperty + "_" + i : rootProperty;
-    if (typeof objectProto[property] === "undefined") {
-      $.dispatchPropertyName = property;
-      setGetDispatchPropertyFn(new Function("a", "return a." + property));
-      $.setDispatchProperty(objectProto, $.makeDispatchRecord(jsObjectInterceptor, objectProto, null, null));
-      return;
-    }
-  }
+  Object.defineProperty(Object.getPrototypeOf(object), init.dispatchPropertyName, {value: record, enumerable: false, writable: true, configurable: true});
+  return J.getNativeInterceptor(object);
 },
 
 Interceptor: {"": "Object;",
@@ -336,7 +370,7 @@ Interceptor: {"": "Object;",
     return receiver === other;
   },
   toString$0: function(receiver) {
-    return $.Primitives_objectToString(receiver);
+    return H.Primitives_objectToString(receiver);
   }
 },
 
@@ -362,8 +396,19 @@ PlainJavaScriptObject: {"": "JavaScriptObject;"},
 UnknownJavaScriptObject: {"": "JavaScriptObject;"},
 
 JSArray: {"": "List/Interceptor;",
+  elementAt$1: function(receiver, index) {
+    if (index < 0 || index >= receiver.length)
+      throw H.ioore(index);
+    return receiver[index];
+  },
   toString$0: function(receiver) {
-    return $.IterableMixinWorkaround_toStringIterable(receiver, "[", "]");
+    return H.IterableMixinWorkaround_toStringIterable(receiver, "[", "]");
+  },
+  get$iterator: function(receiver) {
+    return new H.ListIterator(receiver, receiver.length, 0, null);
+  },
+  get$length: function(receiver) {
+    return receiver.length;
   },
   $isList: true
 },
@@ -379,23 +424,11 @@ JSFixedArray: {"": "JSMutableArray;"},
 JSExtendableArray: {"": "JSMutableArray;"},
 
 JSNumber: {"": "num/Interceptor;",
-  toInt$0: function(receiver) {
-    var truncated;
-    if (isNaN(receiver))
-      throw $.wrapException(new $.UnsupportedError("NaN"));
-    if (receiver == Infinity || receiver == -Infinity)
-      throw $.wrapException(new $.UnsupportedError("Infinity"));
-    truncated = receiver < 0 ? Math.ceil(receiver) : Math.floor(receiver);
-    return truncated == -0.0 ? 0 : truncated;
-  },
   toString$0: function(receiver) {
     if (receiver === 0 && 1 / receiver < 0)
       return "-0.0";
     else
       return "" + receiver;
-  },
-  $add: function(receiver, other) {
-    return receiver + other;
   },
   $isnum: true
 },
@@ -407,29 +440,24 @@ JSDouble: {"": "double/JSNumber;", $isnum: true},
 JSString: {"": "String/Interceptor;",
   codeUnitAt$1: function(receiver, index) {
     if (index < 0)
-      throw $.wrapException(new $.RangeError("value " + index));
+      throw H.wrapException(new P.RangeError("value " + index));
     if (index >= receiver.length)
-      throw $.wrapException(new $.RangeError("value " + index));
+      throw H.wrapException(new P.RangeError("value " + index));
     return receiver.charCodeAt(index);
-  },
-  $add: function(receiver, other) {
-    if (typeof other !== "string")
-      throw $.wrapException(new $.ArgumentError(other));
-    return receiver + other;
   },
   substring$2: function(receiver, startIndex, endIndex) {
     if (endIndex == null)
       endIndex = receiver.length;
     if (typeof endIndex !== "number")
-      $.throwExpression(new $.ArgumentError(endIndex));
+      H.throwExpression(new P.ArgumentError(endIndex));
     if (startIndex < 0)
-      throw $.wrapException(new $.RangeError("value " + startIndex));
+      throw H.wrapException(new P.RangeError("value " + startIndex));
     if (endIndex == null)
-      throw $.iae(endIndex);
+      throw H.iae(endIndex);
     if (startIndex > endIndex)
-      throw $.wrapException(new $.RangeError("value " + startIndex));
+      throw H.wrapException(new P.RangeError("value " + startIndex));
     if (endIndex > receiver.length)
-      throw $.wrapException(new $.RangeError("value " + endIndex));
+      throw H.wrapException(new P.RangeError("value " + H.S(endIndex)));
     return receiver.substring(startIndex, endIndex);
   },
   substring$1: function($receiver, startIndex) {
@@ -440,7 +468,18 @@ JSString: {"": "String/Interceptor;",
   },
   $isString: true
 }}],
-["_js_helper", "dart:_js_helper", , {
+["_js_helper", "dart:_js_helper", , H, {
+isJsIndexable: function(object, record) {
+  var result, t1;
+  if (record != null) {
+    result = record.x;
+    if (result != null)
+      return result;
+  }
+  t1 = J.getInterceptor(object);
+  return typeof object === "object" && object !== null && !!t1.$isJavaScriptIndexingBehavior;
+},
+
 S: function(value) {
   var res;
   if (typeof value === "string")
@@ -454,9 +493,9 @@ S: function(value) {
     return "false";
   else if (value == null)
     return "null";
-  res = $.toString$0(value);
+  res = J.toString$0(value);
   if (typeof res !== "string")
-    throw $.wrapException(new $.ArgumentError(value));
+    throw H.wrapException(new P.ArgumentError(value));
   return res;
 },
 
@@ -471,21 +510,21 @@ Primitives_objectHashCode: function(object) {
 
 Primitives_objectTypeName: function(object) {
   var $name, decompiled, t1;
-  $name = $.constructorNameFallback($.getInterceptor(object));
-  if ($.$eq($name, "Object")) {
+  $name = H.constructorNameFallback(J.getInterceptor(object));
+  if (J.$eq($name, "Object")) {
     decompiled = String(object.constructor).match(/^\s*function\s*(\S*)\s*\(/)[1];
     if (typeof decompiled === "string")
       $name = decompiled;
   }
-  t1 = $.getInterceptor$s($name);
+  t1 = J.getInterceptor$s($name);
   if (t1.codeUnitAt$1($name, 0) === 36)
     $name = t1.substring$1($name, 1);
-  t1 = $.getRuntimeTypeInfo(object);
-  return $.S($name) + $.joinArguments(t1, 0);
+  t1 = H.getRuntimeTypeInfo(object);
+  return H.S($name) + H.joinArguments(t1, 0);
 },
 
 Primitives_objectToString: function(object) {
-  return "Instance of '" + $.Primitives_objectTypeName(object) + "'";
+  return "Instance of '" + H.Primitives_objectTypeName(object) + "'";
 },
 
 Primitives_newFixedList: function($length) {
@@ -495,47 +534,47 @@ Primitives_newFixedList: function($length) {
 },
 
 iae: function(argument) {
-  throw $.wrapException(new $.ArgumentError(argument));
+  throw H.wrapException(new P.ArgumentError(argument));
 },
 
 ioore: function(index) {
   if (typeof index !== "number" || Math.floor(index) !== index)
-    $.iae(index);
-  throw $.wrapException(new $.RangeError("value " + $.S(index)));
+    H.iae(index);
+  throw H.wrapException(new P.RangeError("value " + H.S(index)));
 },
 
 wrapException: function(ex) {
   var wrapper;
   if (ex == null)
-    ex = new $.NullThrownError();
+    ex = new P.NullThrownError();
   wrapper = new Error();
   wrapper.dartException = ex;
   if ("defineProperty" in Object) {
-    Object.defineProperty(wrapper, "message", { get: $.toStringWrapper$closure.call$0 });
+    Object.defineProperty(wrapper, "message", { get: H.toStringWrapper$closure.call$0 });
     wrapper.name = "";
   } else
-    wrapper.toString = $.toStringWrapper$closure.call$0;
+    wrapper.toString = H.toStringWrapper$closure.call$0;
   return wrapper;
 },
 
 toStringWrapper: function() {
-  return $.toString$0(this.dartException);
+  return J.toString$0(this.dartException);
 },
 
 throwExpression: function(ex) {
-  throw $.wrapException(ex);
+  throw H.wrapException(ex);
 },
 
 invokeClosure: function(closure, isolate, numberOfArguments, arg1, arg2) {
-  var t1 = $.getInterceptor(numberOfArguments);
+  var t1 = J.getInterceptor(numberOfArguments);
   if (t1.$eq(numberOfArguments, 0))
-    return new $.invokeClosure_closure(closure).call$0();
+    return new H.invokeClosure_closure(closure).call$0();
   else if (t1.$eq(numberOfArguments, 1))
-    return new $.invokeClosure_closure0(closure, arg1).call$0();
+    return new H.invokeClosure_closure0(closure, arg1).call$0();
   else if (t1.$eq(numberOfArguments, 2))
-    return new $.invokeClosure_closure1(closure, arg1, arg2).call$0();
+    return new H.invokeClosure_closure1(closure, arg1, arg2).call$0();
   else
-    throw $.wrapException(new $._ExceptionImplementation("Unsupported number of arguments for wrapped closure"));
+    throw H.wrapException(new P._ExceptionImplementation("Unsupported number of arguments for wrapped closure"));
 },
 
 convertDartClosureToJS: function(closure, arity) {
@@ -545,13 +584,13 @@ convertDartClosureToJS: function(closure, arity) {
   $function = closure.$identity;
   if (!!$function)
     return $function;
-  $function = (function ($2, $3) { return function($0, $1) { return $3(closure, $2, arity, $0, $1) }})($, $.invokeClosure$closure.call$5);
+  $function = (function ($2, $3) { return function($0, $1) { return $3(closure, $2, arity, $0, $1) }})($, H.invokeClosure$closure.call$5);
   closure.$identity = $function;
   return $function;
 },
 
 throwCyclicInit: function(staticName) {
-  throw $.wrapException(new $.CyclicInitializationError("Cyclic initialization for static " + $.S(staticName)));
+  throw H.wrapException(new P.CyclicInitializationError("Cyclic initialization for static " + H.S(staticName)));
 },
 
 getRuntimeTypeInfo: function(target) {
@@ -564,7 +603,7 @@ runtimeTypeToString: function(type) {
   if (type == null)
     return "dynamic";
   else if (typeof type === "object" && type !== null && type.constructor === Array)
-    return type[0].builtin$cls + $.joinArguments(type, 1);
+    return type[0].builtin$cls + H.joinArguments(type, 1);
   else if (typeof type == "function")
     return type.builtin$cls;
   else
@@ -575,7 +614,7 @@ joinArguments: function(types, startIndex) {
   var buffer, index, firstArgument, allDynamic, argument, str;
   if (types == null)
     return "";
-  buffer = $.StringBuffer$("");
+  buffer = P.StringBuffer$("");
   for (index = startIndex, firstArgument = true, allDynamic = true; index < types.length; ++index) {
     if (firstArgument)
       firstArgument = false;
@@ -584,11 +623,11 @@ joinArguments: function(types, startIndex) {
     argument = types[index];
     if (argument != null)
       allDynamic = false;
-    str = $.runtimeTypeToString(argument);
+    str = H.runtimeTypeToString(argument);
     str = typeof str === "string" ? str : str;
     buffer._contents = buffer._contents + str;
   }
-  return allDynamic ? "" : "<" + $.S(buffer) + ">";
+  return allDynamic ? "" : "<" + H.S(buffer) + ">";
 },
 
 typeNameInChrome: function(obj) {
@@ -596,15 +635,15 @@ typeNameInChrome: function(obj) {
 },
 
 typeNameInSafari: function(obj) {
-  return $.constructorNameFallback(obj);
+  return H.constructorNameFallback(obj);
 },
 
 typeNameInOpera: function(obj) {
-  return $.constructorNameFallback(obj);
+  return H.constructorNameFallback(obj);
 },
 
 typeNameInFirefox: function(obj) {
-  var $name = $.constructorNameFallback(obj);
+  var $name = H.constructorNameFallback(obj);
   if ($name === "BeforeUnloadEvent")
     return "Event";
   if ($name === "DataTransfer")
@@ -619,7 +658,7 @@ typeNameInFirefox: function(obj) {
 },
 
 typeNameInIE: function(obj) {
-  var $name = $.constructorNameFallback(obj);
+  var $name = H.constructorNameFallback(obj);
   if ($name === "Document") {
     if (!!obj.xmlVersion)
       return "Document";
@@ -674,32 +713,32 @@ alternateTag: function(object, tag) {
 },
 
 getFunctionForTypeNameOf: function() {
-  var getTagFunction = $.getBaseFunctionForTypeNameOf();
+  var getTagFunction = H.getBaseFunctionForTypeNameOf();
   if (typeof dartExperimentalFixupGetTag == "function")
-    return $.applyExperimentalFixup(dartExperimentalFixupGetTag, getTagFunction);
+    return H.applyExperimentalFixup(dartExperimentalFixupGetTag, getTagFunction);
   return getTagFunction;
 },
 
 getBaseFunctionForTypeNameOf: function() {
   if (typeof navigator !== "object")
-    return $.typeNameInChrome$closure;
+    return H.typeNameInChrome$closure;
   var userAgent = navigator.userAgent;
   if (userAgent.indexOf("Chrome") !== -1 || userAgent.indexOf("DumpRenderTree") !== -1)
-    return $.typeNameInChrome$closure;
+    return H.typeNameInChrome$closure;
   else if (userAgent.indexOf("Firefox") !== -1)
-    return $.typeNameInFirefox$closure;
-  else if (userAgent.indexOf("MSIE") !== -1)
-    return $.typeNameInIE$closure;
+    return H.typeNameInFirefox$closure;
+  else if (userAgent.indexOf("Trident/") !== -1)
+    return H.typeNameInIE$closure;
   else if (userAgent.indexOf("Opera") !== -1)
-    return $.typeNameInOpera$closure;
+    return H.typeNameInOpera$closure;
   else if (userAgent.indexOf("AppleWebKit") !== -1)
-    return $.typeNameInSafari$closure;
+    return H.typeNameInSafari$closure;
   else
-    return $.constructorNameFallback$closure;
+    return H.constructorNameFallback$closure;
 },
 
 applyExperimentalFixup: function(fixupJSFunction, originalGetTagDartFunction) {
-  return new $.applyExperimentalFixup_newGetTagDartFunction(fixupJSFunction((function(invoke, closure){return function(arg){ return invoke(closure, arg); };})($.callDartFunctionWith1Arg$closure.call$2, originalGetTagDartFunction)));
+  return new H.applyExperimentalFixup_newGetTagDartFunction(fixupJSFunction((function(invoke, closure){return function(arg){ return invoke(closure, arg); };})(H.callDartFunctionWith1Arg$closure.call$2, originalGetTagDartFunction)));
 },
 
 callDartFunctionWith1Arg: function(fn, arg) {
@@ -711,7 +750,7 @@ toStringForNativeObject: function(obj) {
 },
 
 hashCodeForNativeObject: function(object) {
-  return $.Primitives_objectHashCode(object);
+  return H.Primitives_objectHashCode(object);
 },
 
 defineProperty: function(obj, property, value) {
@@ -719,11 +758,11 @@ defineProperty: function(obj, property, value) {
 },
 
 defineNativeMethods: function(tags, interceptorClass) {
-  $.defineNativeMethodsCommon(tags, interceptorClass, true);
+  H.defineNativeMethodsCommon(tags, interceptorClass, true);
 },
 
 defineNativeMethodsNonleaf: function(tags, interceptorClass) {
-  $.defineNativeMethodsCommon(tags, interceptorClass, false);
+  H.defineNativeMethodsCommon(tags, interceptorClass, false);
 },
 
 defineNativeMethodsExtended: function(tags, interceptorClass, subclassInterceptorClasses) {
@@ -735,7 +774,7 @@ defineNativeMethodsExtended: function(tags, interceptorClass, subclassIntercepto
     $.interceptorToTag.push(classes[i]);
     $.interceptorToTag.push(tags);
   }
-  $.defineNativeMethodsCommon(tags, interceptorClass, false);
+  H.defineNativeMethodsCommon(tags, interceptorClass, false);
 },
 
 defineNativeMethodsCommon: function(tags, interceptorClass, isLeaf) {
@@ -767,23 +806,23 @@ lookupDispatchRecord: function(obj) {
   var hasOwnPropertyFunction, tag, interceptor, secondTag, t1;
   hasOwnPropertyFunction = Object.prototype.hasOwnProperty;
   tag = $.get$getTypeNameOf().call$1(obj);
-  interceptor = $.lookupInterceptor(hasOwnPropertyFunction, tag);
+  interceptor = H.lookupInterceptor(hasOwnPropertyFunction, tag);
   if (interceptor == null) {
-    secondTag = $.alternateTag(obj, tag);
+    secondTag = H.alternateTag(obj, tag);
     if (secondTag != null)
-      interceptor = $.lookupInterceptor(hasOwnPropertyFunction, secondTag);
+      interceptor = H.lookupInterceptor(hasOwnPropertyFunction, secondTag);
   }
   if (interceptor == null)
     return;
   t1 = $.leafTags;
   if (t1 != null && t1[tag] === true)
-    return $.makeLeafDispatchRecord(interceptor);
+    return H.makeLeafDispatchRecord(interceptor);
   else
-    return $.makeDispatchRecord(interceptor, Object.getPrototypeOf(obj), null, null);
+    return J.makeDispatchRecord(interceptor, Object.getPrototypeOf(obj), null, null);
 },
 
 makeLeafDispatchRecord: function(interceptor) {
-  return $.makeDispatchRecord(interceptor, false, null, !!interceptor.$isJavaScriptIndexingBehavior);
+  return J.makeDispatchRecord(interceptor, false, null, !!interceptor.$isJavaScriptIndexingBehavior);
 },
 
 invokeClosure_closure: {"": "Closure;closure_0",
@@ -815,17 +854,17 @@ applyExperimentalFixup_newGetTagDartFunction: {"": "Closure;newGetTagJSFunction_
     return this.newGetTagJSFunction_0(object);
   }
 }}],
-["dart._collection.dev", "dart:_collection-dev", , {
+["dart._collection.dev", "dart:_collection-dev", , H, {
 IterableMixinWorkaround_toStringIterable: function(iterable, leftDelimiter, rightDelimiter) {
   var result, i, t1;
   for (i = 0; i < $.get$IterableMixinWorkaround__toStringList().length; ++i) {
     t1 = $.get$IterableMixinWorkaround__toStringList();
     if (i >= t1.length)
-      throw $.ioore(i);
+      throw H.ioore(i);
     if (t1[i] === iterable)
-      return $.S(leftDelimiter) + "..." + $.S(rightDelimiter);
+      return H.S(leftDelimiter) + "..." + H.S(rightDelimiter);
   }
-  result = $.StringBuffer$("");
+  result = P.StringBuffer$("");
   try {
     $.get$IterableMixinWorkaround__toStringList().push(iterable);
     result.write$1(leftDelimiter);
@@ -834,7 +873,7 @@ IterableMixinWorkaround_toStringIterable: function(iterable, leftDelimiter, righ
   } finally {
     t1 = $.get$IterableMixinWorkaround__toStringList();
     if (0 >= t1.length)
-      throw $.ioore(0);
+      throw H.ioore(0);
     t1.pop();
   }
   return result.get$_contents();
@@ -842,36 +881,67 @@ IterableMixinWorkaround_toStringIterable: function(iterable, leftDelimiter, righ
 
 ListIterator: {"": "Object;_iterable,_length,_index,_current",
   moveNext$0: function() {
-    var t1, $length, t2;
+    var t1, t2, $length, t3;
     t1 = this._iterable;
-    $length = t1.length;
+    t2 = J.getInterceptor$asx(t1);
+    $length = t2.get$length(t1);
     if (this._length !== $length)
-      throw $.wrapException(new $.ConcurrentModificationError(t1));
-    t2 = this._index;
-    if (t2 >= $length) {
+      throw H.wrapException(new P.ConcurrentModificationError(t1));
+    t3 = this._index;
+    if (t3 >= $length) {
       this._current = null;
       return false;
     }
-    if (t2 < 0)
-      throw $.ioore(t2);
-    this._current = t1[t2];
+    this._current = t2.elementAt$1(t1, t3);
     this._index = this._index + 1;
     return true;
   }
+},
+
+FixedLengthListMixin: {"": "Object;"}}],
+["dart.collection", "dart:collection", , P, {
+ListMixin: {"": "Object;",
+  get$iterator: function(receiver) {
+    return new H.ListIterator(receiver, this.get$length(receiver), 0, null);
+  },
+  elementAt$1: function(receiver, index) {
+    return this.$index(receiver, index);
+  },
+  toString$0: function(receiver) {
+    var result, i, t1;
+    for (i = 0; i < $.get$ListMixin__toStringList().length; ++i) {
+      t1 = $.get$ListMixin__toStringList();
+      if (i >= t1.length)
+        throw H.ioore(i);
+      if (t1[i] === receiver)
+        return "[...]";
+    }
+    result = P.StringBuffer$("");
+    try {
+      $.get$ListMixin__toStringList().push(receiver);
+      result.write$1("[");
+      result.writeAll$2(receiver, ", ");
+      result.write$1("]");
+    } finally {
+      t1 = $.get$ListMixin__toStringList();
+      if (0 >= t1.length)
+        throw H.ioore(0);
+      t1.pop();
+    }
+    return result.get$_contents();
+  }
 }}],
-["dart.core", "dart:core", , {
+["dart.core", "dart:core", , P, {
 Error_safeToString: function(object) {
-  if (false)
-    return C.JSArray_methods.toString$0(object);
-  return $.Primitives_objectToString(object);
+  return H.Primitives_objectToString(object);
 },
 
 List_List: function($length) {
   if ($length == null)
     return new Array(0);
   if (typeof $length !== "number" || Math.floor($length) !== $length || $length < 0)
-    throw $.wrapException(new $.ArgumentError("Length must be a positive integer: " + $.S($length) + "."));
-  return $.Primitives_newFixedList($length);
+    throw H.wrapException(new P.ArgumentError("Length must be a positive integer: " + H.S($length) + "."));
+  return H.Primitives_newFixedList($length);
 },
 
 Error: {"": "Object;"},
@@ -886,14 +956,14 @@ ArgumentError: {"": "Error;message",
   toString$0: function(_) {
     var t1 = this.message;
     if (t1 != null)
-      return "Illegal argument(s): " + $.S(t1);
+      return "Illegal argument(s): " + H.S(t1);
     return "Illegal argument(s)";
   }
 },
 
 RangeError: {"": "ArgumentError;message",
   toString$0: function(_) {
-    return "RangeError: " + $.S(this.message);
+    return "RangeError: " + H.S(this.message);
   }
 },
 
@@ -905,7 +975,7 @@ UnsupportedError: {"": "Error;message",
 
 ConcurrentModificationError: {"": "Error;modifiedObject",
   toString$0: function(_) {
-    return "Concurrent modification during iteration: " + $.S($.Error_safeToString(this.modifiedObject)) + ".";
+    return "Concurrent modification during iteration: " + P.Error_safeToString(this.modifiedObject) + ".";
   }
 },
 
@@ -932,7 +1002,7 @@ Object: {"": ";",
     return this === other;
   },
   toString$0: function(_) {
-    return $.Primitives_objectToString(this);
+    return H.Primitives_objectToString(this);
   }
 },
 
@@ -943,18 +1013,18 @@ StringBuffer: {"": "Object;_contents<",
     this._contents = this._contents + obj;
   },
   write$1$bailout: function(state0, obj) {
-    var str = typeof obj === "string" ? obj : $.S(obj);
+    var str = typeof obj === "string" ? obj : H.S(obj);
     this._contents = this._contents + str;
   },
   writeAll$2: function(objects, separator) {
     var iterator, str;
-    iterator = new $.ListIterator(objects, objects.length, 0, null);
+    iterator = J.get$iterator$ax(objects);
     if (!iterator.moveNext$0())
       return;
     if (separator.length === 0)
       do {
         str = iterator._current;
-        str = typeof str === "string" ? str : $.S(str);
+        str = typeof str === "string" ? str : H.S(str);
         this._contents = this._contents + str;
       } while (iterator.moveNext$0());
     else {
@@ -962,7 +1032,7 @@ StringBuffer: {"": "Object;_contents<",
       for (; iterator.moveNext$0();) {
         this._contents = this._contents + separator;
         str = iterator._current;
-        str = typeof str === "string" ? str : $.S(str);
+        str = typeof str === "string" ? str : H.S(str);
         this._contents = this._contents + str;
       }
     }
@@ -975,13 +1045,13 @@ StringBuffer: {"": "Object;_contents<",
   },
   static: {
 StringBuffer$: function($content) {
-  var t1 = new $.StringBuffer("");
+  var t1 = new P.StringBuffer("");
   t1.StringBuffer$1($content);
   return t1;
 }}
 
 }}],
-["dart.dom.html", "dart:html", , {
+["dart.dom.html", "dart:html", , W, {
 HtmlElement: {"": "Element;"},
 
 AnchorElement: {"": "HtmlElement;",
@@ -991,7 +1061,7 @@ AnchorElement: {"": "HtmlElement;",
 },
 
 CanvasElement: {"": "HtmlElement;width}",
-  get$context2d: function(receiver) {
+  get$context2D: function(receiver) {
     return receiver.getContext("2d");
   }
 },
@@ -1023,7 +1093,7 @@ MediaElement: {"": "HtmlElement;"},
 Node: {"": "EventTarget;",
   toString$0: function(receiver) {
     var t1 = receiver.nodeValue;
-    return t1 == null ? $.Interceptor.prototype.toString$0.call(this, receiver) : t1;
+    return t1 == null ? J.Interceptor.prototype.toString$0.call(this, receiver) : t1;
   }
 },
 
@@ -1033,7 +1103,7 @@ VideoElement: {"": "MediaElement;width}"},
 
 Window: {"": "EventTarget;",
   _requestAnimationFrame$1: function(receiver, callback) {
-    return receiver.requestAnimationFrame($.convertDartClosureToJS(callback, 1));
+    return receiver.requestAnimationFrame(H.convertDartClosureToJS(callback, 1));
   },
   _ensureRequestAnimationFrame$0: function(receiver) {
     if (!!(receiver.requestAnimationFrame && receiver.cancelAnimationFrame))
@@ -1059,179 +1129,715 @@ Window: {"": "EventTarget;",
     return receiver.toString();
   }
 }}],
-["dart.math", "dart:math", , {
+["dart.math", "dart:math", , P, {
 _Random: {"": "Object;"}}],
+["dart.typed_data", "dart:typed_data", , P, {
+TypedData_ListMixin: {"": "TypedData+ListMixin;"},
+
+TypedData_ListMixin_FixedLengthListMixin: {"": "TypedData_ListMixin+FixedLengthListMixin;"},
+
+TypedData: {"": "Interceptor;",
+  _invalidIndex$2: function(receiver, index, $length) {
+    if (index < 0 || index >= $length)
+      throw H.wrapException(new P.RangeError("value " + index + " not in range 0.." + $length));
+    else
+      throw H.wrapException(new P.ArgumentError("Invalid list index " + index));
+  }
+},
+
+Float32List: {"": "TypedData_ListMixin_FixedLengthListMixin;",
+  get$length: function(receiver) {
+    return C.JS_CONST_ZYJ(receiver);
+  },
+  $index: function(receiver, index) {
+    var t1 = C.JS_CONST_ZYJ(receiver);
+    if (index >>> 0 != index || index >= t1)
+      this._invalidIndex$2(receiver, index, t1);
+    return receiver[index];
+  },
+  $asJavaScriptIndexingBehavior: null,
+  $isJavaScriptIndexingBehavior: true
+}}],
+["vector_math", "package:vector_math/vector_math.dart", , T, {
+Matrix4: {"": "Object;storage",
+  toString$0: function(_) {
+    return "[0] " + H.S(this.getRow$1(0)) + "\n[1] " + H.S(this.getRow$1(1)) + "\n[2] " + H.S(this.getRow$1(2)) + "\n[3] " + H.S(this.getRow$1(3)) + "\n";
+  },
+  getRow$1: function(row) {
+    var t1, r, t2, t3, t4, t5;
+    t1 = new Float32Array(4);
+    t1.$dartCachedLength = t1.length;
+    r = new T.Vector4(t1);
+    t1 = r.storage;
+    t2 = this.storage;
+    t3 = 0 + row;
+    t4 = C.JS_CONST_ZYJ(t2);
+    if (t3 < 0 || t3 >= t4)
+      throw H.ioore(t3);
+    t3 = t2[t3];
+    t5 = C.JS_CONST_ZYJ(t1);
+    if (0 >= t5)
+      throw H.ioore(0);
+    t1[0] = t3;
+    t3 = 4 + row;
+    if (t3 < 0 || t3 >= t4)
+      throw H.ioore(t3);
+    t3 = t2[t3];
+    if (1 >= t5)
+      throw H.ioore(1);
+    t1[1] = t3;
+    t3 = 8 + row;
+    if (t3 < 0 || t3 >= t4)
+      throw H.ioore(t3);
+    t3 = t2[t3];
+    if (2 >= t5)
+      throw H.ioore(2);
+    t1[2] = t3;
+    t3 = 12 + row;
+    if (t3 < 0 || t3 >= t4)
+      throw H.ioore(t3);
+    t3 = t2[t3];
+    if (3 >= t5)
+      throw H.ioore(3);
+    t1[3] = t3;
+    return r;
+  },
+  translate$3: function(_, x, y, z) {
+    var t1, tw, tx, ty, tz, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17;
+    t1 = typeof x === "object" && x !== null && !!C.JSNumber_methods.$isVector4;
+    tw = t1 ? x.get$w() : 1;
+    if (typeof x === "object" && x !== null && !!C.JSNumber_methods.$isVector3 || t1) {
+      tx = C.JSNumber_methods.get$x(x);
+      ty = C.JSNumber_methods.get$y(x);
+      tz = C.JSNumber_methods.get$z(x);
+    } else {
+      tz = z;
+      ty = y;
+      tx = x;
+    }
+    t1 = this.storage;
+    t2 = C.JS_CONST_ZYJ(t1);
+    if (0 >= t2)
+      throw H.ioore(0);
+    t3 = t1[0];
+    if (typeof tx !== "number")
+      throw H.iae(tx);
+    if (4 >= t2)
+      throw H.ioore(4);
+    t4 = t1[4];
+    if (typeof ty !== "number")
+      throw H.iae(ty);
+    if (8 >= t2)
+      throw H.ioore(8);
+    t5 = t1[8];
+    if (typeof tz !== "number")
+      throw H.iae(tz);
+    if (12 >= t2)
+      throw H.ioore(12);
+    t6 = t1[12];
+    t7 = t1[1];
+    t8 = t1[5];
+    t9 = t1[9];
+    if (13 >= t2)
+      throw H.ioore(13);
+    t10 = t1[13];
+    t11 = t1[2];
+    t12 = t1[6];
+    t13 = t1[10];
+    if (14 >= t2)
+      throw H.ioore(14);
+    t14 = t1[14];
+    t15 = t1[3];
+    t16 = t1[7];
+    t17 = t1[11];
+    if (15 >= t2)
+      throw H.ioore(15);
+    t2 = t1[15];
+    t1[12] = t3 * tx + t4 * ty + t5 * tz + t6 * tw;
+    t1[13] = t7 * tx + t8 * ty + t9 * tz + t10 * tw;
+    t1[14] = t11 * tx + t12 * ty + t13 * tz + t14 * tw;
+    t1[15] = t15 * tx + t16 * ty + t17 * tz + t2 * tw;
+    return this;
+  },
+  rotateX$1: function(angle) {
+    var cosAngle, sinAngle, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
+    cosAngle = Math.cos(angle);
+    sinAngle = Math.sin(angle);
+    t1 = this.storage;
+    t2 = C.JS_CONST_ZYJ(t1);
+    if (4 >= t2)
+      throw H.ioore(4);
+    t3 = t1[4];
+    if (8 >= t2)
+      throw H.ioore(8);
+    t4 = t1[8];
+    t5 = t1[5];
+    if (9 >= t2)
+      throw H.ioore(9);
+    t6 = t1[9];
+    t7 = t1[6];
+    if (10 >= t2)
+      throw H.ioore(10);
+    t8 = t1[10];
+    t9 = t1[7];
+    if (11 >= t2)
+      throw H.ioore(11);
+    t2 = t1[11];
+    t10 = -sinAngle;
+    t1[4] = t3 * cosAngle + t4 * sinAngle;
+    t1[5] = t5 * cosAngle + t6 * sinAngle;
+    t1[6] = t7 * cosAngle + t8 * sinAngle;
+    t1[7] = t9 * cosAngle + t2 * sinAngle;
+    t1[8] = t3 * t10 + t4 * cosAngle;
+    t1[9] = t5 * t10 + t6 * cosAngle;
+    t1[10] = t7 * t10 + t8 * cosAngle;
+    t1[11] = t9 * t10 + t2 * cosAngle;
+    return this;
+  },
+  rotateY$1: function(angle) {
+    var cosAngle, sinAngle, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
+    cosAngle = Math.cos(angle);
+    sinAngle = Math.sin(angle);
+    t1 = this.storage;
+    t2 = C.JS_CONST_ZYJ(t1);
+    if (0 >= t2)
+      throw H.ioore(0);
+    t3 = t1[0];
+    if (8 >= t2)
+      throw H.ioore(8);
+    t4 = t1[8];
+    t5 = t1[1];
+    if (9 >= t2)
+      throw H.ioore(9);
+    t6 = t1[9];
+    t7 = t1[2];
+    if (10 >= t2)
+      throw H.ioore(10);
+    t8 = t1[10];
+    t9 = t1[3];
+    if (11 >= t2)
+      throw H.ioore(11);
+    t2 = t1[11];
+    t10 = -sinAngle;
+    t1[0] = t3 * cosAngle + t4 * sinAngle;
+    t1[1] = t5 * cosAngle + t6 * sinAngle;
+    t1[2] = t7 * cosAngle + t8 * sinAngle;
+    t1[3] = t9 * cosAngle + t2 * sinAngle;
+    t1[8] = t3 * t10 + t4 * cosAngle;
+    t1[9] = t5 * t10 + t6 * cosAngle;
+    t1[10] = t7 * t10 + t8 * cosAngle;
+    t1[11] = t9 * t10 + t2 * cosAngle;
+    return this;
+  },
+  rotateZ$1: function(angle) {
+    var cosAngle, sinAngle, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10;
+    cosAngle = Math.cos(angle);
+    sinAngle = Math.sin(angle);
+    t1 = this.storage;
+    t2 = C.JS_CONST_ZYJ(t1);
+    if (0 >= t2)
+      throw H.ioore(0);
+    t3 = t1[0];
+    if (4 >= t2)
+      throw H.ioore(4);
+    t4 = t1[4];
+    t5 = t1[1];
+    if (5 >= t2)
+      throw H.ioore(5);
+    t6 = t1[5];
+    t7 = t1[2];
+    if (6 >= t2)
+      throw H.ioore(6);
+    t8 = t1[6];
+    t9 = t1[3];
+    if (7 >= t2)
+      throw H.ioore(7);
+    t2 = t1[7];
+    t10 = -sinAngle;
+    t1[0] = t3 * cosAngle + t4 * sinAngle;
+    t1[1] = t5 * cosAngle + t6 * sinAngle;
+    t1[2] = t7 * cosAngle + t8 * sinAngle;
+    t1[3] = t9 * cosAngle + t2 * sinAngle;
+    t1[4] = t3 * t10 + t4 * cosAngle;
+    t1[5] = t5 * t10 + t6 * cosAngle;
+    t1[6] = t7 * t10 + t8 * cosAngle;
+    t1[7] = t9 * t10 + t2 * cosAngle;
+    return this;
+  },
+  setIdentity$0: function() {
+    var t1, t2;
+    t1 = this.storage;
+    t2 = C.JS_CONST_ZYJ(t1);
+    if (0 >= t2)
+      throw H.ioore(0);
+    t1[0] = 1;
+    if (1 >= t2)
+      throw H.ioore(1);
+    t1[1] = 0;
+    if (2 >= t2)
+      throw H.ioore(2);
+    t1[2] = 0;
+    if (3 >= t2)
+      throw H.ioore(3);
+    t1[3] = 0;
+    if (4 >= t2)
+      throw H.ioore(4);
+    t1[4] = 0;
+    if (5 >= t2)
+      throw H.ioore(5);
+    t1[5] = 1;
+    if (6 >= t2)
+      throw H.ioore(6);
+    t1[6] = 0;
+    if (7 >= t2)
+      throw H.ioore(7);
+    t1[7] = 0;
+    if (8 >= t2)
+      throw H.ioore(8);
+    t1[8] = 0;
+    if (9 >= t2)
+      throw H.ioore(9);
+    t1[9] = 0;
+    if (10 >= t2)
+      throw H.ioore(10);
+    t1[10] = 1;
+    if (11 >= t2)
+      throw H.ioore(11);
+    t1[11] = 0;
+    if (12 >= t2)
+      throw H.ioore(12);
+    t1[12] = 0;
+    if (13 >= t2)
+      throw H.ioore(13);
+    t1[13] = 0;
+    if (14 >= t2)
+      throw H.ioore(14);
+    t1[14] = 0;
+    if (15 >= t2)
+      throw H.ioore(15);
+    t1[15] = 1;
+    return this;
+  },
+  transform3$1: function(arg) {
+    var t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17;
+    t1 = this.storage;
+    t2 = C.JS_CONST_ZYJ(t1);
+    if (0 >= t2)
+      throw H.ioore(0);
+    t3 = t1[0];
+    t4 = arg.storage;
+    t5 = C.JS_CONST_ZYJ(t4);
+    if (0 >= t5)
+      throw H.ioore(0);
+    t6 = t4[0];
+    if (4 >= t2)
+      throw H.ioore(4);
+    t7 = t1[4];
+    if (1 >= t5)
+      throw H.ioore(1);
+    t8 = t4[1];
+    if (8 >= t2)
+      throw H.ioore(8);
+    t9 = t1[8];
+    if (2 >= t5)
+      throw H.ioore(2);
+    t5 = t4[2];
+    if (12 >= t2)
+      throw H.ioore(12);
+    t10 = t1[12];
+    t11 = t1[1];
+    t12 = t1[5];
+    t13 = t1[9];
+    if (13 >= t2)
+      throw H.ioore(13);
+    t14 = t1[13];
+    t15 = t1[2];
+    t16 = t1[6];
+    t17 = t1[10];
+    if (14 >= t2)
+      throw H.ioore(14);
+    t1 = t1[14];
+    t4[0] = t3 * t6 + t7 * t8 + t9 * t5 + t10;
+    t4[1] = t11 * t6 + t12 * t8 + t13 * t5 + t14;
+    t4[2] = t15 * t6 + t16 * t8 + t17 * t5 + t1;
+    return arg;
+  }
+},
+
+Vector2: {"": "Object;storage",
+  toString$0: function(_) {
+    var t1, t2;
+    t1 = this.storage;
+    if (0 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(0);
+    t2 = "[" + H.S(t1[0]) + ",";
+    if (1 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(1);
+    return t2 + H.S(t1[1]) + "]";
+  }
+},
+
+Vector3: {"": "Object;storage",
+  setValues$3: function(x_, y_, z_) {
+    var t1, t2;
+    t1 = this.storage;
+    t2 = C.JS_CONST_ZYJ(t1);
+    if (0 >= t2)
+      throw H.ioore(0);
+    t1[0] = x_;
+    if (1 >= t2)
+      throw H.ioore(1);
+    t1[1] = y_;
+    if (2 >= t2)
+      throw H.ioore(2);
+    t1[2] = z_;
+    return this;
+  },
+  toString$0: function(_) {
+    var t1, t2;
+    t1 = this.storage;
+    if (0 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(0);
+    t2 = "[" + H.S(t1[0]) + ",";
+    if (1 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(1);
+    t2 = t2 + H.S(t1[1]) + ",";
+    if (2 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(2);
+    return t2 + H.S(t1[2]) + "]";
+  },
+  applyProjection$1: function(arg) {
+    var t1, t2, _x, _y, _z, t3, t4, t5, t6, d;
+    t1 = this.storage;
+    t2 = C.JS_CONST_ZYJ(t1);
+    if (0 >= t2)
+      throw H.ioore(0);
+    _x = t1[0];
+    if (1 >= t2)
+      throw H.ioore(1);
+    _y = t1[1];
+    if (2 >= t2)
+      throw H.ioore(2);
+    _z = t1[2];
+    t2 = arg.storage;
+    t3 = C.JS_CONST_ZYJ(t2);
+    if (3 >= t3)
+      throw H.ioore(3);
+    t4 = t2[3];
+    if (7 >= t3)
+      throw H.ioore(7);
+    t5 = t2[7];
+    if (11 >= t3)
+      throw H.ioore(11);
+    t6 = t2[11];
+    if (15 >= t3)
+      throw H.ioore(15);
+    d = 1 / (t4 * _x + t5 * _y + t6 * _z + t2[15]);
+    t1[0] = (t2[0] * _x + t2[4] * _y + t2[8] * _z + t2[12]) * d;
+    t1[1] = (t2[1] * _x + t2[5] * _y + t2[9] * _z + t2[13]) * d;
+    t1[2] = (t2[2] * _x + t2[6] * _y + t2[10] * _z + t2[14]) * d;
+    return this;
+  },
+  $isVector3: true
+},
+
+Vector4: {"": "Object;storage",
+  toString$0: function(_) {
+    var t1, t2;
+    t1 = this.storage;
+    if (0 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(0);
+    t2 = H.S(t1[0]) + ",";
+    if (1 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(1);
+    t2 = t2 + H.S(t1[1]) + ",";
+    if (2 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(2);
+    t2 = t2 + H.S(t1[2]) + ",";
+    if (3 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(3);
+    return t2 + H.S(t1[3]);
+  },
+  get$w: function() {
+    var t1 = this.storage;
+    if (3 >= C.JS_CONST_ZYJ(t1))
+      throw H.ioore(3);
+    return t1[3];
+  },
+  $isVector4: true
+}}],
 ]);
 Isolate.$finishClasses($$, $, null);
 $$ = null;
 
-$.draw$closure = new $.Closure$draw($.draw, "draw$closure");
-$.toStringWrapper$closure = new $.Closure$toStringWrapper($.toStringWrapper, "toStringWrapper$closure");
-$.invokeClosure$closure = new $.Closure$invokeClosure($.invokeClosure, "invokeClosure$closure");
-$.typeNameInChrome$closure = new $.Closure$typeNameInChrome($.typeNameInChrome, "typeNameInChrome$closure");
-$.typeNameInSafari$closure = new $.Closure$typeNameInSafari($.typeNameInSafari, "typeNameInSafari$closure");
-$.typeNameInOpera$closure = new $.Closure$typeNameInOpera($.typeNameInOpera, "typeNameInOpera$closure");
-$.typeNameInFirefox$closure = new $.Closure$typeNameInFirefox($.typeNameInFirefox, "typeNameInFirefox$closure");
-$.typeNameInIE$closure = new $.Closure$typeNameInIE($.typeNameInIE, "typeNameInIE$closure");
-$.constructorNameFallback$closure = new $.Closure$constructorNameFallback($.constructorNameFallback, "constructorNameFallback$closure");
-$.callDartFunctionWith1Arg$closure = new $.Closure$callDartFunctionWith1Arg($.callDartFunctionWith1Arg, "callDartFunctionWith1Arg$closure");
-$.getInterceptor = function(receiver) {
+// Static function getters
+init.globalFunctions.draw$closure = K.draw$closure = new K.Closure$draw(K.draw, "draw$closure");
+init.globalFunctions.toStringWrapper$closure = H.toStringWrapper$closure = new H.Closure$toStringWrapper(H.toStringWrapper, "toStringWrapper$closure");
+init.globalFunctions.invokeClosure$closure = H.invokeClosure$closure = new H.Closure$invokeClosure(H.invokeClosure, "invokeClosure$closure");
+init.globalFunctions.typeNameInChrome$closure = H.typeNameInChrome$closure = new H.Closure$typeNameInChrome(H.typeNameInChrome, "typeNameInChrome$closure");
+init.globalFunctions.typeNameInSafari$closure = H.typeNameInSafari$closure = new H.Closure$typeNameInSafari(H.typeNameInSafari, "typeNameInSafari$closure");
+init.globalFunctions.typeNameInOpera$closure = H.typeNameInOpera$closure = new H.Closure$typeNameInOpera(H.typeNameInOpera, "typeNameInOpera$closure");
+init.globalFunctions.typeNameInFirefox$closure = H.typeNameInFirefox$closure = new H.Closure$typeNameInFirefox(H.typeNameInFirefox, "typeNameInFirefox$closure");
+init.globalFunctions.typeNameInIE$closure = H.typeNameInIE$closure = new H.Closure$typeNameInIE(H.typeNameInIE, "typeNameInIE$closure");
+init.globalFunctions.constructorNameFallback$closure = H.constructorNameFallback$closure = new H.Closure$constructorNameFallback(H.constructorNameFallback, "constructorNameFallback$closure");
+init.globalFunctions.callDartFunctionWith1Arg$closure = H.callDartFunctionWith1Arg$closure = new H.Closure$callDartFunctionWith1Arg(H.callDartFunctionWith1Arg, "callDartFunctionWith1Arg$closure");
+// Runtime type support
+// getInterceptor methods
+J.getInterceptor = function(receiver) {
   if (typeof receiver == "number") {
     if (Math.floor(receiver) == receiver)
-      return $.JSInt.prototype;
-    return $.JSDouble.prototype;
+      return J.JSInt.prototype;
+    return J.JSDouble.prototype;
   }
   if (typeof receiver == "string")
-    return $.JSString.prototype;
+    return J.JSString.prototype;
   if (receiver == null)
-    return $.JSNull.prototype;
+    return J.JSNull.prototype;
   if (typeof receiver == "boolean")
-    return $.JSBool.prototype;
+    return J.JSBool.prototype;
   if (receiver.constructor == Array)
-    return $.JSArray.prototype;
+    return J.JSArray.prototype;
   if (typeof receiver != "object")
     return receiver;
-  if (receiver instanceof $.Object)
+  if (receiver instanceof P.Object)
     return receiver;
-  return $.getNativeInterceptor(receiver);
+  return J.getNativeInterceptor(receiver);
 };
-$.getInterceptor$n = function(receiver) {
-  if (typeof receiver == "number")
-    return $.JSNumber.prototype;
-  if (receiver == null)
-    return receiver;
-  if (!(receiver instanceof $.Object))
-    return $.UnknownJavaScriptObject.prototype;
-  return receiver;
-};
-$.getInterceptor$ns = function(receiver) {
-  if (typeof receiver == "number")
-    return $.JSNumber.prototype;
+J.getInterceptor$asx = function(receiver) {
   if (typeof receiver == "string")
-    return $.JSString.prototype;
+    return J.JSString.prototype;
   if (receiver == null)
     return receiver;
-  if (!(receiver instanceof $.Object))
-    return $.UnknownJavaScriptObject.prototype;
-  return receiver;
+  if (receiver.constructor == Array)
+    return J.JSArray.prototype;
+  if (typeof receiver != "object")
+    return receiver;
+  if (receiver instanceof P.Object)
+    return receiver;
+  return J.getNativeInterceptor(receiver);
 };
-$.getInterceptor$s = function(receiver) {
+J.getInterceptor$ax = function(receiver) {
+  if (receiver == null)
+    return receiver;
+  if (receiver.constructor == Array)
+    return J.JSArray.prototype;
+  if (typeof receiver != "object")
+    return receiver;
+  if (receiver instanceof P.Object)
+    return receiver;
+  return J.getNativeInterceptor(receiver);
+};
+J.getInterceptor$s = function(receiver) {
   if (typeof receiver == "string")
-    return $.JSString.prototype;
+    return J.JSString.prototype;
   if (receiver == null)
     return receiver;
-  if (!(receiver instanceof $.Object))
-    return $.UnknownJavaScriptObject.prototype;
+  if (!(receiver instanceof P.Object))
+    return J.UnknownJavaScriptObject.prototype;
   return receiver;
 };
-$.getInterceptor$x = function(receiver) {
+J.getInterceptor$x = function(receiver) {
   if (receiver == null)
     return receiver;
   if (typeof receiver != "object")
     return receiver;
-  if (receiver instanceof $.Object)
+  if (receiver instanceof P.Object)
     return receiver;
-  return $.getNativeInterceptor(receiver);
+  return J.getNativeInterceptor(receiver);
 };
-var C = {};
-C.C_UnknownJavaScriptObject = new $.UnknownJavaScriptObject();
-C.C__Random = new $._Random();
-C.JSArray_methods = $.JSArray.prototype;
-C.Window_methods = $.Window.prototype;
+C.C_UnknownJavaScriptObject = new J.UnknownJavaScriptObject();
+C.C__Random = new P._Random();
+C.JSNumber_methods = J.JSNumber.prototype;
+C.JS_CONST_ZYJ =     ((typeof version == "function" && typeof os == "object" && "system" in os)
+    || (typeof navigator == "object"
+        && navigator.userAgent.indexOf('Chrome') != -1))
+        ? function(x) { return x.$dartCachedLength || x.length; }
+        : function(x) { return x.length; };
+;
+C.Window_methods = W.Window.prototype;
+$.PARTICLE_SIZE = 2;
 $.canvas = null;
+$.context = null;
 $._width = null;
 $._height = null;
+$._rotation = 0;
 $.Particle_start = null;
-$.dispatchPropertyName = null;
 $.interceptorsByTag = null;
 $.leafTags = null;
 $.interceptorToTag = null;
-$.$add$ns = function(receiver, a0) {
-  if (typeof receiver == "number" && typeof a0 == "number")
-    return receiver + a0;
-  return $.getInterceptor$ns(receiver).$add(receiver, a0);
-};
-$.$eq = function(receiver, a0) {
+J.$eq = function(receiver, a0) {
   if (receiver == null)
     return a0 == null;
   if (typeof receiver != "object")
     return a0 != null && receiver === a0;
-  return $.getInterceptor(receiver).$eq(receiver, a0);
+  return J.getInterceptor(receiver).$eq(receiver, a0);
 };
-$.get$context2d$x = function(receiver) {
-  return $.getInterceptor$x(receiver).get$context2d(receiver);
+J.get$context2D$x = function(receiver) {
+  return J.getInterceptor$x(receiver).get$context2D(receiver);
 };
-$.set$width$x = function(receiver, value) {
-  return $.getInterceptor$x(receiver).set$width(receiver, value);
+J.get$iterator$ax = function(receiver) {
+  return J.getInterceptor$ax(receiver).get$iterator(receiver);
 };
-$.toInt$0$n = function(receiver) {
-  return $.getInterceptor$n(receiver).toInt$0(receiver);
+J.set$width$x = function(receiver, value) {
+  return J.getInterceptor$x(receiver).set$width(receiver, value);
 };
-$.toString$0 = function(receiver) {
-  return $.getInterceptor(receiver).toString$0(receiver);
+J.toString$0 = function(receiver) {
+  return J.getInterceptor(receiver).toString$0(receiver);
 };
 $.mapTypeToInterceptor = [];
+Isolate.$lazy($, "_bounds", "_bounds", "get$_bounds", function() {
+  var t1, t2, t3;
+  t1 = $._width;
+  if (t1 == null)
+    throw t1.$mul();
+  t2 = $._height;
+  if (t2 == null)
+    throw t2.$mul();
+  t3 = new Float32Array(3);
+  t3.$dartCachedLength = t3.length;
+  t3 = new T.Vector3(t3);
+  t3.setValues$3(t1 * 0.5, t2 * 0.5, 100);
+  return t3;
+});
+Isolate.$lazy($, "matrix4", "matrix4", "get$matrix4", function() {
+  var t1 = new Float32Array(16);
+  t1.$dartCachedLength = t1.length;
+  t1 = new T.Matrix4(t1);
+  t1.setIdentity$0();
+  return t1;
+});
 Isolate.$lazy($, "random", "random", "get$random", function() {
   return C.C__Random;
 });
+Isolate.$lazy($, "_screenPt", "Particle__screenPt", "get$Particle__screenPt", function() {
+  var t1, t2, t3;
+  t1 = new Float32Array(2);
+  t1.$dartCachedLength = t1.length;
+  t1 = new T.Vector2(t1);
+  t2 = t1.storage;
+  t3 = C.JS_CONST_ZYJ(t2);
+  if (0 >= t3)
+    throw H.ioore(0);
+  t2[0] = 0;
+  if (1 >= t3)
+    throw H.ioore(1);
+  t2[1] = 0;
+  return t1;
+});
 Isolate.$lazy($, "getTypeNameOf", "getTypeNameOf", "get$getTypeNameOf", function() {
-  return $.getFunctionForTypeNameOf();
+  return H.getFunctionForTypeNameOf();
 });
 Isolate.$lazy($, "_toStringList", "IterableMixinWorkaround__toStringList", "get$IterableMixinWorkaround__toStringList", function() {
-  return $.List_List(null);
+  return P.List_List(null);
+});
+Isolate.$lazy($, "_toStringList", "ListMixin__toStringList", "get$ListMixin__toStringList", function() {
+  return P.List_List(null);
 });
 // Native classes
-$.defineNativeMethods("AutocompleteErrorEvent|CanvasGradient|CanvasPattern|CanvasRenderingContext|CanvasRenderingContext2D|DOMError|ErrorEvent|Event|FileError|MediaError|MediaKeyError|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedLength|SVGAnimatedLengthList|SVGAnimatedNumber|SVGAnimatedTransformList|SpeechRecognitionError", $.Interceptor);
+H.defineNativeMethods("AutocompleteErrorEvent|CanvasGradient|CanvasPattern|CanvasRenderingContext|CanvasRenderingContext2D|DOMError|ErrorEvent|Event|FileError|MediaError|MediaKeyError|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedLength|SVGAnimatedLengthList|SVGAnimatedNumber|SVGAnimatedTransformList|SpeechRecognitionError", J.Interceptor);
 
-$.defineNativeMethods("HTMLAreaElement|HTMLBRElement|HTMLBaseElement|HTMLBodyElement|HTMLButtonElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDivElement|HTMLFieldSetElement|HTMLFormElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLKeygenElement|HTMLLIElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMapElement|HTMLMenuElement|HTMLMetaElement|HTMLMeterElement|HTMLModElement|HTMLOListElement|HTMLOptGroupElement|HTMLOptionElement|HTMLOutputElement|HTMLParagraphElement|HTMLParamElement|HTMLPreElement|HTMLProgressElement|HTMLQuoteElement|HTMLScriptElement|HTMLSelectElement|HTMLShadowElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTextAreaElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement", $.HtmlElement);
+H.defineNativeMethods("HTMLAppletElement|HTMLAreaElement|HTMLBRElement|HTMLBaseElement|HTMLBaseFontElement|HTMLBodyElement|HTMLButtonElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDirectoryElement|HTMLDivElement|HTMLFieldSetElement|HTMLFontElement|HTMLFormElement|HTMLFrameElement|HTMLFrameSetElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLKeygenElement|HTMLLIElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMapElement|HTMLMarqueeElement|HTMLMenuElement|HTMLMetaElement|HTMLMeterElement|HTMLModElement|HTMLOListElement|HTMLOptGroupElement|HTMLOptionElement|HTMLOutputElement|HTMLParagraphElement|HTMLParamElement|HTMLPreElement|HTMLProgressElement|HTMLQuoteElement|HTMLScriptElement|HTMLSelectElement|HTMLShadowElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTextAreaElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement", W.HtmlElement);
 
-$.defineNativeMethodsNonleaf("HTMLElement", $.HtmlElement);
+H.defineNativeMethodsNonleaf("HTMLElement", W.HtmlElement);
 
-$.defineNativeMethods("HTMLAnchorElement", $.AnchorElement);
+H.defineNativeMethods("HTMLAnchorElement", W.AnchorElement);
 
-$.defineNativeMethods("HTMLCanvasElement", $.CanvasElement);
+H.defineNativeMethods("HTMLCanvasElement", W.CanvasElement);
 
-$.defineNativeMethods("DOMException", $.DomException);
+H.defineNativeMethods("DOMException", W.DomException);
 
-$.defineNativeMethods("SVGAElement|SVGAltGlyphElement|SVGAnimateElement|SVGAnimateMotionElement|SVGAnimateTransformElement|SVGAnimationElement|SVGCircleElement|SVGClipPathElement|SVGComponentTransferFunctionElement|SVGDefsElement|SVGDescElement|SVGElement|SVGEllipseElement|SVGFEBlendElement|SVGFEColorMatrixElement|SVGFEComponentTransferElement|SVGFECompositeElement|SVGFEConvolveMatrixElement|SVGFEDiffuseLightingElement|SVGFEDisplacementMapElement|SVGFEDistantLightElement|SVGFEFloodElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEGaussianBlurElement|SVGFEImageElement|SVGFEMergeElement|SVGFEMergeNodeElement|SVGFEMorphologyElement|SVGFEOffsetElement|SVGFEPointLightElement|SVGFESpecularLightingElement|SVGFESpotLightElement|SVGFETileElement|SVGFETurbulenceElement|SVGFilterElement|SVGForeignObjectElement|SVGGElement|SVGGradientElement|SVGGraphicsElement|SVGImageElement|SVGLineElement|SVGLinearGradientElement|SVGMarkerElement|SVGMaskElement|SVGMetadataElement|SVGPathElement|SVGPatternElement|SVGPolygonElement|SVGPolylineElement|SVGRadialGradientElement|SVGRectElement|SVGSVGElement|SVGScriptElement|SVGSetElement|SVGStopElement|SVGStyleElement|SVGSwitchElement|SVGSymbolElement|SVGTSpanElement|SVGTextContentElement|SVGTextElement|SVGTextPathElement|SVGTextPositioningElement|SVGTitleElement|SVGUseElement|SVGViewElement", $.Element);
+H.defineNativeMethods("SVGAElement|SVGAltGlyphDefElement|SVGAltGlyphElement|SVGAltGlyphItemElement|SVGAnimateColorElement|SVGAnimateElement|SVGAnimateMotionElement|SVGAnimateTransformElement|SVGAnimationElement|SVGCircleElement|SVGClipPathElement|SVGComponentTransferFunctionElement|SVGCursorElement|SVGDefsElement|SVGDescElement|SVGElement|SVGEllipseElement|SVGFEBlendElement|SVGFEColorMatrixElement|SVGFEComponentTransferElement|SVGFECompositeElement|SVGFEConvolveMatrixElement|SVGFEDiffuseLightingElement|SVGFEDisplacementMapElement|SVGFEDistantLightElement|SVGFEDropShadowElement|SVGFEFloodElement|SVGFEFuncAElement|SVGFEFuncBElement|SVGFEFuncGElement|SVGFEFuncRElement|SVGFEGaussianBlurElement|SVGFEImageElement|SVGFEMergeElement|SVGFEMergeNodeElement|SVGFEMorphologyElement|SVGFEOffsetElement|SVGFEPointLightElement|SVGFESpecularLightingElement|SVGFESpotLightElement|SVGFETileElement|SVGFETurbulenceElement|SVGFilterElement|SVGFontElement|SVGFontFaceElement|SVGFontFaceFormatElement|SVGFontFaceNameElement|SVGFontFaceSrcElement|SVGFontFaceUriElement|SVGForeignObjectElement|SVGGElement|SVGGlyphElement|SVGGlyphRefElement|SVGGradientElement|SVGGraphicsElement|SVGHKernElement|SVGImageElement|SVGLineElement|SVGLinearGradientElement|SVGMPathElement|SVGMarkerElement|SVGMaskElement|SVGMetadataElement|SVGMissingGlyphElement|SVGPathElement|SVGPatternElement|SVGPolygonElement|SVGPolylineElement|SVGRadialGradientElement|SVGRectElement|SVGSVGElement|SVGScriptElement|SVGSetElement|SVGStopElement|SVGStyleElement|SVGSwitchElement|SVGSymbolElement|SVGTRefElement|SVGTSpanElement|SVGTextContentElement|SVGTextElement|SVGTextPathElement|SVGTextPositioningElement|SVGTitleElement|SVGUseElement|SVGVKernElement|SVGViewElement", W.Element);
 
-$.defineNativeMethodsNonleaf("Element", $.Element);
+H.defineNativeMethodsNonleaf("Element", W.Element);
 
-$.defineNativeMethods("HTMLEmbedElement", $.EmbedElement);
+H.defineNativeMethods("HTMLEmbedElement", W.EmbedElement);
 
-$.defineNativeMethodsNonleaf("EventTarget", $.EventTarget);
+H.defineNativeMethodsNonleaf("EventTarget", W.EventTarget);
 
-$.defineNativeMethods("HTMLIFrameElement", $.IFrameElement);
+H.defineNativeMethods("HTMLIFrameElement", W.IFrameElement);
 
-$.defineNativeMethods("HTMLImageElement", $.ImageElement);
+H.defineNativeMethods("HTMLImageElement", W.ImageElement);
 
-$.defineNativeMethods("HTMLInputElement", $.InputElement);
+H.defineNativeMethods("HTMLInputElement", W.InputElement);
 
-$.defineNativeMethods("HTMLAudioElement", $.MediaElement);
+H.defineNativeMethods("HTMLAudioElement", W.MediaElement);
 
-$.defineNativeMethodsNonleaf("HTMLMediaElement", $.MediaElement);
+H.defineNativeMethodsNonleaf("HTMLMediaElement", W.MediaElement);
 
-$.defineNativeMethods("Document|HTMLDocument", $.Node);
+H.defineNativeMethods("Document|HTMLDocument", W.Node);
 
-$.defineNativeMethodsNonleaf("Node", $.Node);
+H.defineNativeMethodsNonleaf("Node", W.Node);
 
-$.defineNativeMethods("HTMLObjectElement", $.ObjectElement);
+H.defineNativeMethods("HTMLObjectElement", W.ObjectElement);
 
-$.defineNativeMethods("HTMLVideoElement", $.VideoElement);
+H.defineNativeMethods("HTMLVideoElement", W.VideoElement);
 
-$.defineNativeMethods("DOMWindow|Window", $.Window);
+H.defineNativeMethods("DOMWindow|Window", W.Window);
+
+H.defineNativeMethodsExtended("ArrayBufferView", P.TypedData, [P.TypedData_ListMixin, P.TypedData_ListMixin_FixedLengthListMixin]);
+
+H.defineNativeMethods("Float32Array", P.Float32List);
 
 
+init.functionAliases = {};
+;
 init.metadata = [];
 $ = null;
 Isolate = Isolate.$finishIsolateConstructor(Isolate);
 $ = new Isolate();
-$.initializeDispatchProperty(function(a) {
-  $.getDispatchProperty = a;
-}, "___dart_dispatch_record_ZxYxX_0_", $.PlainJavaScriptObject.prototype);
+function convertToFastObject(properties) {
+  function makeConstructor() {
+    var str = "{\n";
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    for (var property in properties) {
+      if (hasOwnProperty.call(properties, property)) {
+        str += "this." + property + "= properties." + property + ";\n";
+      }
+    }
+    str += "}\n";
+    return new Function("properties", str);
+  };
+  var constructor = makeConstructor();
+  return makeConstructor.prototype = new constructor(properties);
+}
+A = convertToFastObject(A);
+B = convertToFastObject(B);
+C = convertToFastObject(C);
+D = convertToFastObject(D);
+E = convertToFastObject(E);
+F = convertToFastObject(F);
+G = convertToFastObject(G);
+H = convertToFastObject(H);
+J = convertToFastObject(J);
+K = convertToFastObject(K);
+L = convertToFastObject(L);
+M = convertToFastObject(M);
+N = convertToFastObject(N);
+O = convertToFastObject(O);
+P = convertToFastObject(P);
+Q = convertToFastObject(Q);
+R = convertToFastObject(R);
+S = convertToFastObject(S);
+T = convertToFastObject(T);
+U = convertToFastObject(U);
+V = convertToFastObject(V);
+W = convertToFastObject(W);
+X = convertToFastObject(X);
+Y = convertToFastObject(Y);
+Z = convertToFastObject(Z);
+!function() {
+  var objectProto = Object.prototype;
+  for (var i = 0;; i++) {
+    var property = "___dart_dispatch_record_ZxYxX_0_";
+    if (i > 0)
+      property = rootProperty + "_" + i;
+    if (!(property in objectProto))
+      return init.dispatchPropertyName = property;
+  }
+}();
 // BEGIN invoke [main].
 ;(function (callback) {
-  if (typeof document === 'undefined') {
+  if (typeof document === "undefined") {
     callback(null);
     return;
   }
@@ -1243,27 +1849,20 @@ $.initializeDispatchProperty(function(a) {
   var scripts = document.scripts;
   function onLoad(event) {
     for (var i = 0; i < scripts.length; ++i) {
-      scripts[i].removeEventListener('load', onLoad, false);
+      scripts[i].removeEventListener("load", onLoad, false);
     }
     callback(event.target);
   }
   for (var i = 0; i < scripts.length; ++i) {
-    scripts[i].addEventListener('load', onLoad, false);
+    scripts[i].addEventListener("load", onLoad, false);
   }
 })(function(currentScript) {
-  Isolate.$isolateProperties.$currentScript =
-      currentScript;
+  init.currentScript = currentScript;
 
-  if (typeof console !== 'undefined' && typeof document !== 'undefined' &&
-      document.readyState == "loading") {
-    console.warn("Dart script executed synchronously, use <script src='" +
-        currentScript.src + "' defer></scr" + "ipt> to execute after parsing " +
-        "has completed. See also http://dartbug.com/12281.");
-  }
   if (typeof dartMainRunner === "function") {
-    dartMainRunner(function() { $.main(); });
+    dartMainRunner(function() { K.main(); });
   } else {
-    $.main();
+    K.main();
   }
 });
 // END invoke [main].
@@ -1272,6 +1871,13 @@ function init() {
   function generateAccessor(field, prototype) {
     var len = field.length;
     var code = field.charCodeAt(len - 1);
+    var reflectable = false;
+    if (code == 45) {
+      len--;
+      code = field.charCodeAt(len - 1);
+      field = field.substring(0, len);
+      reflectable = true;
+    }
     code = code >= 60 && code <= 64 ? code - 59 : code >= 123 && code <= 126 ? code - 117 : code >= 37 && code <= 43 ? code - 27 : 0;
     if (code) {
       var getterCode = code & 3;
@@ -1287,12 +1893,18 @@ function init() {
         var receiver = getterCode & 1 ? "this" : "receiver";
         var body = "return " + receiver + "." + field;
         prototype["get$" + accessorName] = new Function(args, body);
+        if (reflectable) {
+          prototype["get$" + accessorName].$reflectable = 1;
+        }
       }
       if (setterCode) {
         var args = setterCode & 2 ? "receiver, value" : "value";
         var receiver = setterCode & 1 ? "this" : "receiver";
         var body = receiver + "." + field + " = value";
         prototype["set$" + accessorName] = new Function(args, body);
+        if (reflectable) {
+          prototype["set$" + accessorName].$reflectable = 1;
+        }
       }
     }
     return field;
@@ -1329,10 +1941,18 @@ function init() {
   }
   Isolate.$finishClasses = function(collectedClasses, isolateProperties, existingIsolateProperties) {
     var pendingClasses = {};
+    if (!init.allClasses)
+      init.allClasses = {};
+    var allClasses = init.allClasses;
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     for (var cls in collectedClasses) {
       if (hasOwnProperty.call(collectedClasses, cls)) {
         var desc = collectedClasses[cls];
+        var globalObject = isolateProperties;
+        if (desc instanceof Array) {
+          globalObject = desc[0] || isolateProperties;
+          desc = desc[1];
+        }
         var classData = desc[""], supr, name = cls, fields = classData;
         if (typeof classData == "string") {
           var split = classData.split("/");
@@ -1350,8 +1970,20 @@ function init() {
           if (!!desc.$name)
             name = desc.$name;
         }
+        if (supr && supr.indexOf("+") > 0) {
+          s = supr.split("+");
+          supr = s[0];
+          var mixin = collectedClasses[s[1]];
+          if (mixin instanceof Array)
+            mixin = mixin[1];
+          for (var d in mixin) {
+            if (hasOwnProperty.call(mixin, d) && !hasOwnProperty.call(desc, d))
+              desc[d] = mixin[d];
+          }
+        }
         var constructor = defineClass(name, cls, fields, desc);
-        isolateProperties[cls] = constructor;
+        allClasses[cls] = constructor;
+        globalObject[cls] = constructor;
         if (supr)
           pendingClasses[cls] = supr;
       }
@@ -1366,8 +1998,8 @@ function init() {
       if (!superclass || typeof superclass != "string")
         return;
       finishClass(superclass);
-      var constructor = isolateProperties[cls];
-      var superConstructor = isolateProperties[superclass];
+      var constructor = allClasses[cls];
+      var superConstructor = allClasses[superclass];
       if (!superConstructor)
         superConstructor = existingIsolateProperties[superclass];
       var prototype = constructor.prototype;
@@ -1414,7 +2046,7 @@ function init() {
           }
         } else {
           if (result === sentinelInProgress)
-            $.throwCyclicInit(staticName);
+            H.throwCyclicInit(staticName);
         }
         return result;
       } finally {
@@ -1424,7 +2056,6 @@ function init() {
   };
   Isolate.$finishIsolateConstructor = function(oldIsolate) {
     var isolateProperties = oldIsolate.$isolateProperties;
-    isolateProperties.$currentScript = null;
     var isolatePrototype = oldIsolate.prototype;
     var str = "{\n";
     str += "var properties = arguments.callee.$isolateProperties;\n";
@@ -1435,9 +2066,6 @@ function init() {
       }
     }
     str += "}\n";
-    var Constants = function() {
-    };
-    Constants.prototype = C;
     var newIsolate = new Function(str);
     newIsolate.prototype = isolatePrototype;
     isolatePrototype.constructor = newIsolate;
