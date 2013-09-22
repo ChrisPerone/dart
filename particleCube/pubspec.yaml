@@ -1,5 +1,7 @@
-name: ParticleCube
-description: A sample application
+name: particle_cube
+version: 0.1.0
+author: Chris Perone
+description: Basic spinning cube filled with particles.
 dependencies:
   browser: any
   vector_math: '>=1.3.5 <2.0.0'
