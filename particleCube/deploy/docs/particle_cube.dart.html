@@ -1,0 +1,231 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>particle_cube.dart Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="styles.css">
+        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="favicon.ico">
+        
+        </head>
+        <body data-library="particle_cube.dart">
+        <div class="page">
+        <div class="header">
+          <a href="index.html"><div class="logo"></div></a>
+          <a href="index.html">Dart Documentation</a>
+         &rsaquo; <a href="particle_cube.dart.html">particle_cube.dart</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="metadata.html">metadata</a></h2><h2><div class="icon-library"></div><strong>particle_cube.dart</strong></h2><ul class="icon">
+<li><a href="particle_cube.dart/Particle.html"><div class="icon-class"></div>Particle</a></li>
+</ul>
+<h2><div class="icon-library"></div><a href="vector_math.html">vector_math</a></h2></div>
+<div class="content">
+<h2><strong>particle_cube.dart</strong> library</h2>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="canvas">
+<button class="show-code">Code</button>
+<a href="http://api.dartlang.org/dart_html/CanvasElement.html">CanvasElement</a>         <strong>canvas</strong> <a class="anchor-link"
+            href="#canvas"
+            title="Permalink to canvas">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+CanvasElement canvas
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="context">
+<button class="show-code">Code</button>
+<a href="http://api.dartlang.org/dart_html/CanvasRenderingContext2D.html">CanvasRenderingContext2D</a>         <strong>context</strong> <a class="anchor-link"
+            href="#context"
+            title="Permalink to context">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+CanvasRenderingContext2D context
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="getRandomColor">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_core/String.html">String</a>         <strong>getRandomColor</strong> <a class="anchor-link"
+            href="#getRandomColor"
+            title="Permalink to getRandomColor">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+String get getRandomColor {
+ return '#${random.nextInt(255).toRadixString(16)}${random.nextInt(255).toRadixString(16)}${random.nextInt(255).toRadixString(16)}';
+}
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="height">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_core/num.html">num</a>         <strong>height</strong> <a class="anchor-link"
+            href="#height"
+            title="Permalink to height">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+num get height =&gt; _height;
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="matrix4">
+<button class="show-code">Code</button>
+final <a href="vector_math/Matrix4.html">Matrix4</a>         <strong>matrix4</strong> <a class="anchor-link"
+            href="#matrix4"
+            title="Permalink to matrix4">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final Matrix4 matrix4 = new Matrix4.identity()
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="PARTICLE_SIZE">
+<button class="show-code">Code</button>
+<a href="http://api.dartlang.org/dart_core/int.html">int</a>         <strong>PARTICLE_SIZE</strong> <a class="anchor-link"
+            href="#PARTICLE_SIZE"
+            title="Permalink to PARTICLE_SIZE">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+int PARTICLE_SIZE = 2
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="random">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_math/Random.html">Random</a>         <strong>random</strong> <a class="anchor-link"
+            href="#random"
+            title="Permalink to random">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+final Math.Random random = new Math.Random(100)
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="width">
+<button class="show-code">Code</button>
+final <a href="http://api.dartlang.org/dart_core/num.html">num</a>         <strong>width</strong> <a class="anchor-link"
+            href="#width"
+            title="Permalink to width">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+num get width =&gt; _width;
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Functions</h3>
+<div class="method"><h4 id="drawBackground">
+<button class="show-code">Code</button>
+void <strong>drawBackground</strong>() <a class="anchor-link" href="#drawBackground"
+              title="Permalink to drawBackground">#</a></h4>
+<div class="doc">
+<pre class="source">
+void drawBackground() {
+ context.save();
+ context.transform(1, 0, 0, 1, 0, 0);
+ context.clearRect(0, 0, width, height);
+ context.restore();
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="draw">
+<button class="show-code">Code</button>
+void <strong>draw</strong>(<a href="http://api.dartlang.org/dart_core/num.html">num</a> _) <a class="anchor-link" href="#draw"
+              title="Permalink to draw">#</a></h4>
+<div class="doc">
+<pre class="source">
+void draw(num _) {
+   drawBackground();
+
+   matrix4.setIdentity();
+   matrix4.translate(_bounds.x * 0.5, _bounds.y * 0.5, _bounds.z * 0.5);
+   matrix4.rotateX(_rotation);
+   matrix4.rotateY(_rotation);
+   matrix4.rotateZ(_rotation);
+   matrix4.translate(-_bounds.x * 0.5, -_bounds.y * 0.5, -_bounds.z * 0.5);
+   _rotation = 0.005;
+
+   Particle particle = Particle.start;
+   while (particle != null) {
+     particle.draw();
+     particle = particle.next;
+   }
+
+   window.requestAnimationFrame(draw);
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="main">
+<button class="show-code">Code</button>
+void <strong>main</strong>() <a class="anchor-link" href="#main"
+              title="Permalink to main">#</a></h4>
+<div class="doc">
+<pre class="source">
+void main() {
+   canvas = query("#container");
+   context = canvas.context2D;
+   //Measure the canvas element.
+   _width = (canvas.parent as Element).clientWidth;
+   _height = (canvas.parent as Element).clientHeight;
+
+   canvas.width = _width;
+
+   Particle particle;
+   Particle last;
+   for (int i = 0; i &lt; 5000; ++i) {
+     particle = new Particle(random.nextDouble() * _bounds.x, random.nextDouble() * _bounds.y, random.nextDouble() * _bounds.z, getRandomColor);
+     if (last != null)
+        last.next = particle;
+     last = particle;
+     if (Particle.start == null)
+         Particle.start = particle;
+   }
+
+   context.fillStyle = "#FFFFFF";
+   context.setTransform(1, 0, 0, 1, 0, 0);
+
+   window.requestAnimationFrame(draw);
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Classes</h3>
+          <div class="type">
+          <h4>
+            <a href="particle_cube.dart/Particle.html"><strong>Particle</strong></a>
+          </h4>
+          </div>
+          
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-09-22 15:52:44.477</div>
+        </div>
+        <script async src="client-static.js"></script>
+        </body></html>
+        

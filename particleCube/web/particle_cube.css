@@ -13,11 +13,12 @@ p {
 }
 
 #container {
-  width: 100%;
+  width: 400px;
   height: 400px;
   position: relative;
   border: 1px solid #ccc;
   background-color: #000000;
+  transform: translateZ(0);
 }
 
 #text {
