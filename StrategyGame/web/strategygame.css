@@ -8,31 +8,20 @@ body {
   margin: 15px;
 }
 
-p {
+h1, p {
   color: #333;
 }
 
-#container {
-  width: 400px;
+#sample_container_id {
+  width: 100%;
   height: 400px;
   position: relative;
   border: 1px solid #ccc;
-  background-color: #000000;
-  transform: translateZ(0);
+  background-color: #fff;
 }
 
-#text {
+#sample_text_id {
   font-size: 24pt;
   text-align: center;
   margin-top: 140px;
-}
-
-#summary {
-  float: left;
-}
-
-#notes {
-  float: right;
-  width: 120px;
-  text-align: right;
 }
