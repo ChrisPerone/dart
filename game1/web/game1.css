@@ -1,0 +1,27 @@
+
+body {
+  background-color: #F8F8F8;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2em;
+  margin: 15px;
+}
+
+h1, p {
+  color: #333;
+}
+
+#container {
+  width: 640px;
+  height: 480px;
+  position: relative;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+#minerals {
+  margin-top: 20px;
+  font-size: 20pt;
+  text-align: center;
+}
