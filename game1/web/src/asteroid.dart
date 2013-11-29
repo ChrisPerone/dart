@@ -1,4 +1,4 @@
-part of stagexl_web;
+part of game1_web;
 
 class Asteroid extends Bitmap implements Animatable {
 
@@ -12,6 +12,7 @@ class Asteroid extends Bitmap implements Animatable {
       bitmapData.colorTransform(bitmapData.rectangle, new ColorTransform(1.0, 1.0, 1.0, 1.0, random.nextInt(100), random.nextInt(100), random.nextInt(100)));
       _rotRate = random.nextDouble();
       maxHealth = health = (_halfWidth * _halfHeight).toInt();
+      juggler.add(this);
     }
 
     bool advanceTime(num time) {
@@ -24,11 +25,20 @@ class Asteroid extends Bitmap implements Animatable {
       return true;
     }
 
+    Minerals takeDamage(int damage) {
+      health -= damage;
+      (parent as Asteroids).drawHealthBar(health / maxHealth, x - _halfWidth, y - _halfHeight);
+      if (health <= 0) {
+        return destroy();
+      }
+      return new Minerals();
+    }
     /**
      * Destroys this asteroid and returns the minerals mined from it.
      */
     Minerals destroy() {
       Random random = new Random();
+      (parent as Asteroids).asteroids.remove(this);
       removeFromParent();
       juggler.remove(this);
       return new Minerals(gold: random.nextInt(255), silver: random.nextInt(255), copper: random.nextInt(255));

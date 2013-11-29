@@ -2,7 +2,7 @@
 
 {
 	"filename": "asteroid0_0.png",
-	"frame": {"x":37,"y":20,"w":8,"h":9},
+	"frame": {"x":36,"y":62,"w":8,"h":9},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":3,"w":8,"h":9},
@@ -10,7 +10,7 @@
 },
 {
 	"filename": "asteroid0_1.png",
-	"frame": {"x":37,"y":2,"w":16,"h":17},
+	"frame": {"x":36,"y":44,"w":16,"h":17},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":16,"h":17},
@@ -23,14 +23,38 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":33,"h":32},
 	"sourceSize": {"w":33,"h":32}
+},
+{
+	"filename": "cannon0_0.png",
+	"frame": {"x":37,"y":20,"w":22,"h":24},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":1,"w":22,"h":24},
+	"sourceSize": {"w":30,"h":26}
+},
+{
+	"filename": "ship0_0.png",
+	"frame": {"x":2,"y":36,"w":32,"h":28},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":32,"h":28},
+	"sourceSize": {"w":32,"h":32}
+},
+{
+	"filename": "wall0_0.png",
+	"frame": {"x":37,"y":2,"w":16,"h":25},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":1,"w":16,"h":25},
+	"sourceSize": {"w":24,"h":29}
 }],
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker ",
 	"version": "1.0",
 	"image": "asteroids.png",
 	"format": "RGBA8888",
-	"size": {"w":64,"h":64},
+	"size": {"w":64,"h":128},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5c665617cef39a3808a6fa4097c4f199:5c269e6ba6c5979f7b445dc66e3a05bc:3cb2167982f406a3d6627570b02f9be7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:b490820e62d2704d95b141fd234b0008:84045b720d1607705e27db7633474e58:3cb2167982f406a3d6627570b02f9be7$"
 }
 }
