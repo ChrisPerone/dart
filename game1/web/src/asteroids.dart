@@ -5,12 +5,13 @@ class Asteroids extends DisplayObjectContainer {
   List asteroids = new List<Asteroid>();
   List asteroidsToRemove = new List<Asteroid>();
   List ships = new List<Ship>();
+  List pressedKeys = new List<int>();
   Minerals _minerals;
   Shape _healthBar;
   num _fpsAverage = null;
-  
+
   Minerals get minerals => _minerals;
-  
+
   Asteroids() {
     addChild(new Bitmap(resourceManager.getBitmapData('background')));
     addAsteroids(50);
@@ -20,10 +21,11 @@ class Asteroids extends DisplayObjectContainer {
 
     _healthBar = new Shape();
     addChild(_healthBar);
-    
+
 //    stage.onMouseMove.listen(onClicked);
-    html.query('#stage').onKeyDown.listen(keyDownListener);
-    
+    html.querySelector('#stage').onKeyDown.listen(keyDownListener);
+    html.querySelector('#stage').onKeyUp.listen(keyUpListener);
+
     // add event listener for EnterFrame (fps meter)
 //    onEnterFrame.listen(_onEnterFrame);
   }
@@ -42,8 +44,8 @@ class Asteroids extends DisplayObjectContainer {
 
   //---------------------------------------------------------------------------------
 
-  void updateHUD() { html.query('#minerals').innerHtml = _minerals.toString(); }
-  
+  void updateHUD() { html.querySelector('#minerals').innerHtml = _minerals.toString(); }
+
   void addAsteroids(int amount) {
 
     var random        = new Random();
@@ -55,13 +57,13 @@ class Asteroids extends DisplayObjectContainer {
       var bitmapData  = textureAtlas.getBitmapData(frameName);
 
       var asteroid    = new Asteroid(bitmapData, random.nextDouble() * 200 - 100, random.nextDouble() * 200 - 100);
-      asteroid.x      = 30 + random.nextInt(html.query('#stage').clientWidth - 60);
-      asteroid.y      = 30 + random.nextInt(html.query('#stage').clientHeight - 60);
+      asteroid.x      = 30 + random.nextInt(html.querySelector('#stage').clientWidth - 60);
+      asteroid.y      = 30 + random.nextInt(html.querySelector('#stage').clientHeight - 60);
       asteroids.add(asteroid);
       addChild(asteroid);
     }
   }
-  
+
   void addShips(int amount) {
 
     var random        = new Random();
@@ -72,8 +74,8 @@ class Asteroids extends DisplayObjectContainer {
       var bitmapData  = textureAtlas.getBitmapData(frameNames[4]);
 
       var instance    = new Ship(bitmapData, 200.0);
-      instance.x      = 30 + random.nextInt(html.query('#stage').clientWidth - 60);
-      instance.y      = 30 + random.nextInt(html.query('#stage').clientHeight - 60);
+      instance.x      = 30 + random.nextInt(html.querySelector('#stage').clientWidth - 60);
+      instance.y      = 30 + random.nextInt(html.querySelector('#stage').clientHeight - 60);
       ships.add(instance);
       addChild(instance);
     }
@@ -82,16 +84,24 @@ class Asteroids extends DisplayObjectContainer {
 
   void keyDownListener(e) {
     var keyCode = e.keyCode;
-    
+
     print('$keyCode');
-    switch (keyCode) {
-      case 32: ships[0].fire(); break;
-      case 37: ships[0].rotation -= 0.1; break;
-      case 38: ships[0].thrust(); break;
-      case 39: ships[0].rotation += 0.1; break;
-    }
+    pressedKeys.add(keyCode);
   }
-  
+
+  void keyUpListener(e) {
+
+    for (var keyCode in pressedKeys) {
+      switch (keyCode) {
+        case 32: ships[0].fire(); break;
+        case 37: ships[0].rotation -= 0.1; break;
+        case 38: ships[0].thrust(); break;
+        case 39: ships[0].rotation += 0.1; break;
+      }
+    }
+    pressedKeys.clear();
+  }
+
   void onClicked(MouseEvent e) {
 //    asteroids.forEach((asteroid) => checkDist(asteroid, e.stageX, e.stageY));
     num dx, dy;
@@ -112,10 +122,10 @@ class Asteroids extends DisplayObjectContainer {
     }
     asteroidsToRemove.forEach(asteroids.remove);
   }
-  
+
 //  void checkDist(Asteroid asteroid, num targetX, num targetY) {
 //    num dx, dy;
-//    
+//
 //    dx = targetX - asteroid.x;
 //    dy = targetY - asteroid.y;
 //    if (dx * dx + dy * dy < asteroid.width * asteroid.height) {
@@ -130,7 +140,7 @@ class Asteroids extends DisplayObjectContainer {
 //      }
 //    }
 //  }
-  
+
   void drawHealthBar(double fillPercent, num barX, num barY) {
     _healthBar.graphics.clear();
     if (fillPercent > 0.0) {

@@ -18,10 +18,21 @@ class Asteroid extends Bitmap implements Animatable {
     bool advanceTime(num time) {
       var tx = x + _vx * time;
       var ty = y + _vy * time;
-      if (tx > 640 - _halfWidth || tx < _halfWidth) _vx = -_vx; else x = tx;
-      if (ty > 480 - _halfHeight || ty < _halfHeight) _vy = -_vy; else y = ty;
+
+      if (tx < 0)
+        tx = html.querySelector('#stage').clientWidth;
+      else if (tx > html.querySelector('#stage').clientWidth)
+        tx = 0;
+
+      if (ty < 0)
+        ty = html.querySelector('#stage').clientHeight;
+      else if (ty > html.querySelector('#stage').clientHeight)
+        ty = 0;
+
+      x = tx;
+      y = ty;
       rotation += _rotRate * time;
-      
+
       return true;
     }
 
@@ -47,15 +58,15 @@ class Asteroid extends Bitmap implements Animatable {
 
 class Minerals {
   int gold, silver, copper;
-  
+
   Minerals({this.gold: 0, this.silver: 0, this.copper: 0}) { }
-  
+
   void add(Minerals minerals) {
     gold    += minerals.gold;
     silver  += minerals.silver;
     copper  += minerals.copper;
   }
-  
+
   String toString() {
     return 'Gold: $gold Silver: $silver Copper: $copper';
   }

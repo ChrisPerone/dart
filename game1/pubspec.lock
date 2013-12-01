@@ -4,8 +4,8 @@ packages:
   browser:
     description: browser
     source: hosted
-    version: "0.8.10+3"
+    version: "0.9.0"
   stagexl:
     description: stagexl
     source: hosted
-    version: "0.8.7"
+    version: "0.8.8"

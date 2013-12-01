@@ -16,16 +16,16 @@ ResourceManager resourceManager;
 void main() {
 
   // initialize Stage and RenderLoop
-  stage = new Stage('stage', html.query('#stage'));
+  stage = new Stage('stage', html.querySelector('#stage'));
   renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
   juggler = renderLoop.juggler;
-  
+
   // initialize ResourceManager
   resourceManager = new ResourceManager()
     ..addBitmapData('background', 'assets/background0.jpg')
     ..addTextureAtlas('asteroids', 'assets/asteroids.json', TextureAtlasFormat.JSONARRAY);
-  
+
   resourceManager.load()
     .then((_) => stage.addChild(new Asteroids()))
     .catchError((e) => print(e));
