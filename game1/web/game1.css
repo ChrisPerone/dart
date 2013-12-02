@@ -13,7 +13,7 @@ h1, p {
 }
 
 #container {
-  width: 640px;
+  width: 960px;
   height: 480px;
   position: relative;
   border: 1px solid #ccc;
@@ -24,4 +24,5 @@ h1, p {
   margin-top: 20px;
   font-size: 20pt;
   text-align: center;
+  font-family: 'Electrolize', sans-serif;
 }

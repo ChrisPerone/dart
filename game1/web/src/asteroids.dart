@@ -13,8 +13,9 @@ class Asteroids extends DisplayObjectContainer {
   Minerals get minerals => _minerals;
 
   Asteroids() {
-    addChild(new Bitmap(resourceManager.getBitmapData('background')));
-    addAsteroids(50);
+    stage.removeChildren(0, stage.numChildren - 1);
+    addBackground();
+    addAsteroids(30);
     addShips(1);
     _minerals = new Minerals();
     updateHUD();
@@ -46,6 +47,18 @@ class Asteroids extends DisplayObjectContainer {
 
   void updateHUD() { html.querySelector('#minerals').innerHtml = _minerals.toString(); }
 
+  void addBackground() {
+    var random = new Random();
+    var bmd = new BitmapData(stage.stageWidth, stage.stageHeight, false, 0xFF000000);
+    var max = stage.stageWidth;
+    for (var i = 0; i < max; ++i) {
+      var rect = new Rectangle(random.nextInt(bmd.width), random.nextInt(bmd.height), random.nextInt(3), random.nextInt(3));
+      var color = random.nextInt(255) << 24 | random.nextInt(255) << 16 | random.nextInt(255) << 8 | random.nextInt(255);
+      bmd.fillRect(rect, color);
+    }
+    addChild(new Bitmap(bmd));
+  }
+
   void addAsteroids(int amount) {
 
     var random        = new Random();
@@ -57,8 +70,9 @@ class Asteroids extends DisplayObjectContainer {
       var bitmapData  = textureAtlas.getBitmapData(frameName);
 
       var asteroid    = new Asteroid(bitmapData, random.nextDouble() * 200 - 100, random.nextDouble() * 200 - 100);
-      asteroid.x      = 30 + random.nextInt(html.querySelector('#stage').clientWidth - 60);
-      asteroid.y      = 30 + random.nextInt(html.querySelector('#stage').clientHeight - 60);
+      var angle = random.nextDouble() * PI * 2;
+      asteroid.x      = stage.stageWidth * 0.5 + cos(angle) * (50 + random.nextInt(stage.stageWidth));
+      asteroid.y      = stage.stageHeight * 0.5 + sin(angle) * (50 + random.nextInt(stage.stageHeight));
       asteroids.add(asteroid);
       addChild(asteroid);
     }
@@ -74,8 +88,8 @@ class Asteroids extends DisplayObjectContainer {
       var bitmapData  = textureAtlas.getBitmapData(frameNames[4]);
 
       var instance    = new Ship(bitmapData, 200.0);
-      instance.x      = 30 + random.nextInt(html.querySelector('#stage').clientWidth - 60);
-      instance.y      = 30 + random.nextInt(html.querySelector('#stage').clientHeight - 60);
+      instance.x      = html.querySelector('#stage').clientWidth * 0.5;
+      instance.y      = html.querySelector('#stage').clientHeight * 0.5;
       ships.add(instance);
       addChild(instance);
     }
@@ -85,21 +99,14 @@ class Asteroids extends DisplayObjectContainer {
   void keyDownListener(e) {
     var keyCode = e.keyCode;
 
-    print('$keyCode');
-    pressedKeys.add(keyCode);
+    if (!pressedKeys.contains(keyCode))
+      pressedKeys.add(keyCode);
   }
 
   void keyUpListener(e) {
+    var keyCode = e.keyCode;
 
-    for (var keyCode in pressedKeys) {
-      switch (keyCode) {
-        case 32: ships[0].fire(); break;
-        case 37: ships[0].rotation -= 0.1; break;
-        case 38: ships[0].thrust(); break;
-        case 39: ships[0].rotation += 0.1; break;
-      }
-    }
-    pressedKeys.clear();
+    while (pressedKeys.remove(keyCode));
   }
 
   void onClicked(MouseEvent e) {
