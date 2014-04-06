@@ -20,6 +20,8 @@
 
 part of vector_math;
 
-const double degrees2radians = Math.PI/180.0;
-const double radians2degrees = 180.0/Math.PI;
+const double degrees2radians = Math.PI / 180.0;
+const double radians2degrees = 180.0 / Math.PI;
+/// Use SQRT1_2 from dart:math instead
+@deprecated
 const double sqrtOneHalf = 0.70710678118;

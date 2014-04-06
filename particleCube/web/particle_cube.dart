@@ -3,7 +3,7 @@ import 'dart:web_gl' as WebGL;
 import 'dart:math' as Math;
 import 'package:vector_math/vector_math.dart';
 
-int PARTICLE_SIZE = 2;
+const int PARTICLE_SIZE = 2;
 
 CanvasElement canvas;
 //CanvasElement sourceCanvas;
@@ -45,7 +45,8 @@ void main() {
     numParticles.value = "10000";
     numParticles.onInput.listen(clickedSubmit);
     buffer = new CanvasElement(width: PARTICLE_SIZE, height: PARTICLE_SIZE);
-    window.setImmediate(start);
+//    window.setImmediate(start);
+    start();
 }
 void clickedSubmit(Event event) {
   window.cancelAnimationFrame(animFrameId);
@@ -73,7 +74,7 @@ void clickedSubmit(Event event) {
 }
 void start() {
     context       = canvas.context2D;
-    Rect rect     = canvas.parent.client;
+    Rectangle rect     = canvas.parent.client;
     _width        = rect.width;
     _height       = rect.height;
     canvas.width  = _width;

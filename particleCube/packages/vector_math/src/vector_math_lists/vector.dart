@@ -36,7 +36,7 @@ abstract class VectorList {
     return offset + width * length;
   }
 
-  VectorList(int length, int vectorLength, [int offset=0, int stride=0])
+  VectorList(int length, int vectorLength, [int offset = 0, int stride = 0])
       : _vectorLength = vectorLength,
         _offset = offset,
         _stride = stride == 0 ? vectorLength : stride,
@@ -99,13 +99,27 @@ abstract class VectorList {
     }
   }
 
-  dynamic operator[](int index) {
+  void copy(VectorList src, {int srcOffset: 0, int offset: 0, int count: 0}) {
+    if (count == 0) {
+      count = Math.min(length - offset, src.length - srcOffset);
+    }
+    int minVectorLength = Math.min(_vectorLength, src._vectorLength);
+    for (int i = 0; i < count; i++) {
+      int index = _vectorIndexToBufferIndex(i + offset);
+      int srcIndex = src._vectorIndexToBufferIndex(i + srcOffset);
+      for (int j = 0; j < minVectorLength; j++) {
+        _buffer[index++] = src._buffer[srcIndex++];
+      }
+    }
+  }
+
+  dynamic operator [](int index) {
     var r = newVector();
     load(index, r);
     return r;
   }
 
-  void operator[]=(int index, dynamic v) {
+  void operator []=(int index, dynamic v) {
     store(index, v);
   }
 }
