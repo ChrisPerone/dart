@@ -23,7 +23,7 @@ part of vector_math;
 
 /// 3D column vector.
 class Vector3 {
-  final Float32List storage = new Float32List(3);
+  final Float32List storage;
 
   /// Set the values of [result] to the minimum of [a] and [b] for each line.
   static void min(Vector3 a, Vector3 b, Vector3 result) {
@@ -39,13 +39,21 @@ class Vector3 {
     result.z = Math.max(a.z, b.z);
   }
 
+  // Interpolate between [min] and [max] with the amount of [a] using a linear 
+  // interpolation and set the values to [result].
+  static void mix(Vector3 min, Vector3 max, double a, Vector3 result) {
+    result.x = min.x + a * (max.x - min.x);
+    result.y = min.y + a * (max.y - min.y);
+    result.z = min.z + a * (max.z - min.z);
+  }
+
   /// Construct a new vector with the specified values.
-  Vector3(double x_, double y_, double z_) {
+  Vector3(double x_, double y_, double z_) : storage = new Float32List(3) {
     setValues(x_, y_, z_);
   }
 
   /// Initialized with values from [array] starting at [offset].
-  Vector3.array(List<double> array, [int offset=0]) {
+  Vector3.array(List<double> array, [int offset=0]) : storage = new Float32List(3) {
     int i = offset;
     storage[2] = array[i+2];
     storage[1] = array[i+1];
@@ -53,12 +61,22 @@ class Vector3 {
   }
 
   //// Zero vector.
-  Vector3.zero();
+  Vector3.zero() : storage = new Float32List(3);
 
+  /// Splat [value] into all lanes of the vector.
+  Vector3.all(double value) : this(value, value, value);
+  
   /// Copy of [other].
-  Vector3.copy(Vector3 other) {
+  Vector3.copy(Vector3 other) : storage = new Float32List(3) {
     setFrom(other);
   }
+
+  /// Constructs Vector3 with given Float32List as [storage].
+  Vector3.fromFloat32List(Float32List this.storage);
+
+  /// Constructs Vector3 with a [storage] that views given [buffer] starting at [offset].
+  /// [offset] has to be multiple of [Float32List.BYTES_PER_ELEMENT].
+  Vector3.fromBuffer(ByteBuffer buffer, int offset) : storage = new Float32List.view(buffer, offset, 3);
 
   /// Set the values of the vector.
   Vector3 setValues(double x_, double y_, double z_) {
@@ -178,6 +196,16 @@ class Vector3 {
     return out.normalize();
   }
 
+  /// Distance from [this] to [arg]
+  double distanceTo(Vector3 arg) {
+    return this.clone().sub(arg).length;
+  }
+
+  /// Squared distance from [this] to [arg]
+  double distanceToSquared(Vector3 arg) {
+    return this.clone().sub(arg).length2;
+  }
+
   /// Inner product.
   double dot(Vector3 other) {
     double sum;
@@ -185,6 +213,23 @@ class Vector3 {
     sum += storage[1] * other.storage[1];
     sum += storage[2] * other.storage[2];
     return sum;
+  }
+
+  /**
+   * Transforms [this] into the product of [this] as a row vector,
+   * postmultiplied by matrix, [arg].
+   * If [arg] is a rotation matrix, this is a computational shortcut for applying,
+   * the inverse of the transformation.
+   */
+  Vector3 postmultiply(Matrix3 arg) {
+    double v0 = storage[0];
+    double v1 = storage[1];
+    double v2 = storage[2];
+    storage[0] = v0*arg.storage[0]+v1*arg.storage[1]+v2*arg.storage[2];
+    storage[1] = v0*arg.storage[3]+v1*arg.storage[4]+v2*arg.storage[5];
+    storage[2] = v0*arg.storage[6]+v1*arg.storage[7]+v2*arg.storage[8];
+
+    return this;
   }
 
   /// Cross product.
@@ -274,6 +319,14 @@ class Vector3 {
     storage[0] = storage[0] + arg.storage[0];
     storage[1] = storage[1] + arg.storage[1];
     storage[2] = storage[2] + arg.storage[2];
+    return this;
+  }
+
+  /// Add [arg] scaled by [factor] to [this].
+  Vector3 addScaled(Vector3 arg, double factor) {
+    storage[0] = storage[0] + arg.storage[0] * factor;
+    storage[1] = storage[1] + arg.storage[1] * factor;
+    storage[2] = storage[2] + arg.storage[2] * factor;
     return this;
   }
 

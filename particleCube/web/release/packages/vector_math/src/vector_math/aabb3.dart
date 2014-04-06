@@ -41,7 +41,12 @@ class Aabb3 {
     _min = new Vector3.copy(other._min),
     _max = new Vector3.copy(other._max) {}
 
+  @deprecated
   Aabb3.minmax(Vector3 min_, Vector3 max_) :
+    _min = new Vector3.copy(min_),
+    _max = new Vector3.copy(max_) {}
+
+  Aabb3.minMax(Vector3 min_, Vector3 max_) :
     _min = new Vector3.copy(min_),
     _max = new Vector3.copy(max_) {}
 
@@ -49,6 +54,11 @@ class Aabb3 {
     max_.setFrom(_max);
     min_.setFrom(_min);
   }
+
+  /// Constructs Aabb3 with a min/max [storage] that views given [buffer] starting at [offset].
+  /// [offset] has to be multiple of [Float32List.BYTES_PER_ELEMENT].
+  Aabb3.fromBuffer(ByteBuffer buffer, int offset) : _min = new Vector3.fromBuffer(buffer, offset),
+      _max = new Vector3.fromBuffer(buffer, offset + Float32List.BYTES_PER_ELEMENT*3);
 
   void copyCenterAndHalfExtents(Vector3 center, Vector3 halfExtents) {
     center.setFrom(_min);
@@ -126,8 +136,14 @@ class Aabb3 {
     max.z = Math.max(_max.z, other.max.y);
   }
 
+  /// Set the min and max of [this] so that [this] contains [point].
+  void hullPoint(Vector3 point) {
+    Vector3.min(_min, point, _min);
+    Vector3.max(_max, point, _max);
+  }
+
   /// Return if [this] contains [other].
-  bool contains(Aabb3 other) {
+  bool containsAabb3(Aabb3 other) {
     return min.x < other.min.x &&
            min.y < other.min.y &&
            min.z < other.min.z &&
@@ -136,13 +152,73 @@ class Aabb3 {
            max.z > other.max.z;
   }
 
+  /// Return if [this] contains [other].
+  bool containsSphere(Sphere other) {
+    final sphereExtends = new Vector3.zero().splat(other.radius);
+    final sphereBox = new Aabb3.minMax(other.center.clone().sub(sphereExtends),
+                                       other.center.clone().add(sphereExtends));
+
+    return containsAabb3(sphereBox);
+  }
+
+  /// Return if [this] contains [other].
+  bool containsVector3(Vector3 other) {
+    return min.x < other.x &&
+           min.y < other.y &&
+           min.z < other.z &&
+           max.x > other.x &&
+           max.y > other.y &&
+           max.z > other.z;
+  }
+
+  /// Return if [this] contains [other].
+  bool containsTriangle(Triangle other) {
+    return containsVector3(other.point0) &&
+           containsVector3(other.point1) &&
+           containsVector3(other.point2);
+  }
+
   /// Return if [this] intersects with [other].
-  bool intersectsWith(Aabb3 other) {
+  bool intersectsWithAabb3(Aabb3 other) {
     return min.x <= other.max.x &&
            min.y <= other.max.y &&
            min.z <= other.max.z &&
            max.x >= other.min.x &&
            max.y >= other.min.y &&
            max.z >= other.min.z;
+  }
+
+  /// Return if [this] intersects with [other].
+  bool intersectsWithSphere(Sphere other) {
+    double d = 0.0;
+    double e = 0.0;
+
+    for (int i = 0; i < 3; ++i) {
+      if ((e = other.center[i] - min[i]) < 0.0) {
+        if (e < -other.radius) {
+          return false;
+        }
+
+        d = d + e * e;
+      } else if ((e = other.center[i] - max[i]) > 0.0) {
+        if (e > other.radius) {
+          return false;
+        }
+
+        d = d + e * e;
+      }
+    }
+
+    return d <= other.radius * other.radius;
+  }
+
+  /// Return if [this] intersects with [other].
+  bool intersectsWithVector3(Vector3 other) {
+    return min.x <= other.x &&
+           min.y <= other.y &&
+           min.z <= other.z &&
+           max.x >= other.x &&
+           max.y >= other.y &&
+           max.z >= other.z;
   }
 }
